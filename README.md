@@ -1,1 +1,1 @@
-tiva-tilavaraus
+This is a readme-file of tiva-tilavaraus application
