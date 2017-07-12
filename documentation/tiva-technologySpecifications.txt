@@ -1,0 +1,11 @@
+Front-end
+- HTML
+- CSS
+- JavaScript
+	+ Bootstrap
+
+Back-end
+- MongoDB
+- NodeJS
+	+ ExpressJS
+	+ i18n-express (localisation)

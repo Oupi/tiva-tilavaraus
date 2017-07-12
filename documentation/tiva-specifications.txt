@@ -1,0 +1,34 @@
+################
+## KRIITTINEN ##
+################
+- Palveluun tunnistautuminen VS Varaaminen ilman kirjautumista?
+- Tilan varaaminen
+- Varauksen peruutus/muokkaus
+- Kaikkien varausten säilöminen tietokantaan (myös peruutettujen)
+- Sähköposti-ilmoitus palvelun ylläpitäjälle ja käyttäjälle varauksista.
+- Responsiivisuus = näyttää hyvältä koneella ja mobiililaitteilla (?)
+- Tilojen/käyttäjien tietojen muokkaus(lisääminen, poisto kuuluu myös tähän)
+
+###############
+## HYVÄ OLLA ##
+###############
+- Roolit käyttäjille(esim. ylläpitäjä, asiakas, tilan yhteyshenkilö)
+- Hintatiedot varaukselle
+- Useampi varattava tila
+- Tilan/tilojen graafinen valintaikkuna
+- Vahvistussähköposti varauksen tehneelle
+- Forgot password -toiminto (jos kirjautuminen)
+- Tilavarausten selaaminen ilman kirjautumista
+- Lokalisointi
+
+######################
+## LISÄOMINAISUUDET ##
+######################
+- Graafinen näkymä ylläpitäjälle varatuista tiloista.
+- Graafinen chat-palvelu
+- Kuvien lisääminen esim. tilojen esittelyyn/tietoihin
+- Palautteen/ilmoituksen jättäminen tilan ylläpitäjälle
+- Tilojen arvostelu mahdollisuus
+- Mahdollisuus toistuvaan varaukseen
+- Google-tunnistautuminen
+- Facebook-tunnistautuminen
