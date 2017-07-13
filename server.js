@@ -9,10 +9,11 @@ MONGO.connect("mongodb://localhost:27017", function(err, db) {
 });
 
 var app = EXPRESS();
+app.use(EXPRESS.static("./public"));
 
-app.get('../website/index.html', function(req, res){
+app.get('/', function(req, res){
   console.log("GET req");
-  res.send("Hello");
+  res.sendFile(__dirname + "/views/index.html");
 });
 
 app.listen(8080, function() {

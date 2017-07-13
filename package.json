@@ -1,0 +1,25 @@
+{
+  "name": "tiva-tilavaraus",
+  "version": "1.0.0",
+  "description": "This is a readme-file of tiva-tilavaraus application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oupi/tiva-tilavaraus.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Oupi/tiva-tilavaraus/issues"
+  },
+  "homepage": "https://github.com/Oupi/tiva-tilavaraus#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongodb": "^2.2.30"
+  }
+}
