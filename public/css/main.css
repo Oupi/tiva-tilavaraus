@@ -32,3 +32,13 @@ html, body {
 	background-color: #ce3765;
 	height: 50px; /* TEMP */
 }
+
+#login {
+	float: right;
+	margin-right: 4%;
+	color: white;
+}
+
+.popover {
+	color: black;
+}

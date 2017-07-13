@@ -10,9 +10,19 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<link rel="stylesheet" href="../public/css/main.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    $(document).ready(function(){
+      $("#datepicker").datepicker();
+      $('[data-toggle="popover"]').popover({
+        title: "<h4>Kirjautumistiedot</h4>",
+        content: "<form>Sähköposti <br> <input type='email'></input> <br> Salasana <br> <input type='password'></input> <br><br> <input type='submit' class='btn btn-default' value='Kirjaudu'></input></form>", html: true});
+    });
+    </script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -21,6 +31,9 @@
 
 		<div class="container-fluid" id="main-title-div">
 			<h1 id="main-title">TiVa</h1>
+      <!--Login popover -->
+      <a id="login" href="#" data-toggle="popover" data-placement="bottom" >
+        Kirjaudu sisään <span class="glyphicon glyphicon-triangle-bottom"></span></a>
 		</div>
 
 		<div class="container-fluid" id="second-title-div">
@@ -44,6 +57,22 @@
         </div>
         <button type="submit" class="btn btn-default">Varaa</button>
       </form>
+
+      <h3 class="page-header">Lista varauksista</h3>
+      <div class="row">
+        <div class="col-sm-3">
+          <h4>Päivämäärä</h4>
+          <input type="text" id="datepicker" placeholder="Valitse pvm"></input>
+        </div>
+        <div class="col-sm-9">
+          <h5>Valittu pvm</h5>
+          <ul class="list-group">
+            <li class="list-group-item">Eka varaus</li>
+            <li class="list-group-item">Toinen varaus</li>
+            <li class="list-group-item">Kolmas varaus</li>
+          </ul>
+        </div>
+      </div>
 		</div>
 
 		<div class="container-fluid" id="footer">
