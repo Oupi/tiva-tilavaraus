@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<link rel="stylesheet" href="css/main.css">
-		<link rel="stylesheet" href="../public/css/main.css">
+		<!-- <link rel="stylesheet" href="../public/css/main.css"> -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -43,18 +43,18 @@
 
 		<div class="container-fluid" id="content">
       <h3>Varaa tila</h3>
-      <form>
+      <form action="/insert-reservation" method="post">
         <div class="form-group">
           <label for="room">Tila:</label>
-          <input type="text" class="form-control" id="room" autofocus>
+          <input type="text" class="form-control" name="room" id="room" autofocus>
         </div>
         <div class="form-group">
           <label for="time_start">Alkuaika:</label>
-          <input type="datetime-local" class="form-control" id="time_start">
+          <input type="datetime-local" class="form-control" name="time_start" id="time_start">
         </div>
         <div class="form-group">
           <label for="time_end">Loppuaika:</label>
-          <input type="datetime-local" class="form-control" id="time_end">
+          <input type="datetime-local" class="form-control" name="time_end" id="time_end">
         </div>
         <button type="submit" class="btn btn-default">Varaa</button>
       </form>
