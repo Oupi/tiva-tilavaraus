@@ -9,7 +9,7 @@ MONGO.connect("mongodb://localhost:27017", function(err, db) {
 });
 
 var app = EXPRESS();
-app.use(EXPRESS.static("./public"));
+app.use(EXPRESS.static(__dirname + "/public"));
 
 app.get('/', function(req, res){
   console.log("GET req");
