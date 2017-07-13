@@ -1,0 +1,34 @@
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+#main-title-div {
+	background-color: #ce3765;
+}
+
+#main-title {
+	color: white;
+	text-align: center;
+	padding: 10px 0px 10px 0px;
+}
+
+#second-title-div {
+	background-color: #ed7499;
+}
+
+#second-title {
+	color: white;
+	text-align: center;
+	font-size: 1.5em;
+	padding: 5px 0px 5px 0px;
+}
+
+#content {
+	height: 70%; /* TEMP */
+}
+
+#footer {
+	background-color: #ce3765;
+	height: 50px; /* TEMP */
+}
