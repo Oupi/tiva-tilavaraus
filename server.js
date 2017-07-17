@@ -44,6 +44,19 @@ app.post('/insert-reservation', upload.array(), function(req, res, next){
   res.redirect('/');
 });
 
+app.get('/get-reservation', function(req, res, next){
+  MONGO.connect(URL, function(err, db) {
+    ASSERT.equal(null, err);
+    console.log("Reservations required");
+    var collection = db.collection('myCollection');
+    collection.find().toArray(function(err, docs){
+      console.log("retrieved records:");
+      console.log(docs);
+      res.send(JSON.stringify(docs));
+    });
+  });
+});
+
 app.listen(8080, function() {
   console.log("Listening port 8080...");
 });

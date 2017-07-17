@@ -1,4 +1,19 @@
 $(document).ready(function(){
+	$("#get-reservations").click(function(){
+    $.get("/get-reservation", function(data){
+      $(jQuery.parseJSON(data)).each(function() {
+          var room = this.room;
+          var start = this.time_start;
+					var end = this.time_end;
+					var li = document.createElement("LI");
+					li.className = "list-group-item";
+					var t = document.createTextNode(room + " from " + start + " to " + end + ".");
+					li.appendChild(t);   // Append query result to <ul>
+					document.getElementById("reslist").appendChild(li);
+      });
+    });
+  });
+	
 	$("#datepicker").datepicker();
 	$('[data-toggle="popover"]').popover({
 		title: "<h4>Kirjautumistiedot</h4>",
