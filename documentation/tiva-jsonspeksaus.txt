@@ -20,9 +20,9 @@ reservation:
         “res_id”:int,
         “room_id”:int,
         “user”: { “user_id”, “name”, “email”, “phonenumber” } ,
-        “time_start”:”DATETIME()”,
-        “time_end”:”DATETIME()”,
-        “time_cancel”: "DATETIME()"
+        “time_start”:”String”,
+        “time_end”:”String”,
+        “time_cancel”: "String"
 }
 
 
