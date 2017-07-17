@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>TiVa-tilavarausjärjestelmä</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="../public/css/main.css"> <!-- For local testing, comment out for final -->
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="js/main.js"></script>
+    <script src="../public/js/main.js"></script>
+	</head>
+	<body>
+		<!--[if lt IE 7]>
+				<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+
+		<div class="container-fluid" id="main-title-div">
+			<h1 id="main-title">TiVa</h1>
+      <!--Login popover -->
+      <a id="login" href="#" data-toggle="popover" data-placement="bottom" >
+        Kirjaudu sisään <span class="glyphicon glyphicon-triangle-bottom"></span></a>
+		</div>
+
+		<div class="container-fluid" id="second-title-div">
+			<h2 id="second-title">Tilanvarausjärjestelmä</h2>
+		</div>
+
+		<div class="container-fluid" id="content">
+			<br />
+			<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#reserveWindow">Varaa tila</button>
+			<br />
+
+			<div id="reserveWindow" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h3>Varaa tila</h3>
+						</div>
+
+						<div class="modal-body">
+							<form action="/insert-reservation" id="new-reservation" method="post">
+								<div class="form-group">
+									<label for="room">Tila:</label>
+									<input type="text" class="form-control" name="room" id="room" autofocus>
+								</div>
+								<div class="form-group">
+									<label for="time_start">Alkuaika:</label>
+									<input type="datetime-local" class="form-control" name="time_start" id="time_start">
+								</div>
+								<div class="form-group">
+									<label for="time_end">Loppuaika:</label>
+									<input type="datetime-local" class="form-control" name="time_end" id="time_end">
+								</div>
+								<button type="submit" class="btn btn-success">Varaa</button>
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Peruuta</button>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+      <h3 class="page-header">Lista varauksista</h3>
+      <div class="row">
+        <div class="col-sm-3">
+          <h4>Päivämäärä</h4>
+          <input type="date" id="get-reservations-input"></input>
+					<br><br>
+					<button class="btn btn-info" id="get-reservations">Hae varaukset</button>
+        </div>
+        <div class="col-sm-9">
+          <h5>Valittu pvm</h5>
+          <ul class="list-group" id="reslist"></ul>
+        </div>
+      </div>
+		</div>
+
+		<div class="container-fluid" id="footer">
+
+		</div>
+	</body>
+</html>

@@ -1,0 +1,40 @@
+﻿user:
+{
+        “user_id”: int,
+        “name”: “String”,
+        “email”: “String”,
+        “address”: “String”,
+        “phonenumber”: “String”,
+        “role”: int,
+        “reservations” : [
+        “reservation” : { “res_id”, “room_id”, “room_name”, “time_start”, “time_end” }
+        ] ,
+        “owned_rooms”: [
+                “room” : { “room_id”, “name” }
+        ]
+}
+
+
+reservation:
+{
+        “res_id”:int,
+        “room_id”:int,
+        “user”: { “user_id”, “name”, “email”, “phonenumber” } ,
+        “time_start”:”String”,
+        “time_end”:”String”,
+        “time_cancel”: "String"
+}
+
+
+room :
+{
+        “room_id”: int,
+        “contact_person”: { “name”, “email”, “phonenumber” }
+        “capacity_max”: int,
+        “name”: “String”,
+        “description”: “String”,
+        “timebeforecancel”: int,
+        “reserved”: [
+                “past_reservation”: { “user_id”, “time_start”, “time_end” }
+        ]
+}

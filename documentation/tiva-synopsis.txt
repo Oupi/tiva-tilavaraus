@@ -1,0 +1,6 @@
+######################
+##     Synopsis     ##
+## TiVa-tilanvaraus ##
+######################
+
+Tilanvarausjärjestelmä TiVa on web-pohjainen palvelu, jossa jonkin kyseisen tilan vuokraaja tai lainaaja pystyy kätevästi vuokraamaan/lainaamaan saatavilla olevia tiloja tai laittamaan omia tilojaan muiden vuokrattavaksi/lainattavaksi. TiVa mahdollistaa käyttäjillensä erilaiset oikeudet riippuen tarpeista. Käyttäjätasoja on kolme: Asiakas, omistaja ja ylläpitäjä. Asiakkaalla on oikeus tehdä varauksia tiloihin sekä perua varauksia. Omistaja voi lisätä, muokata ja poistaa tiloja sekä varauksia. Järjestelmän ylläpitäjää ei käytännössä tarvita muuta kuin ongelmatilanteissa ja omistaja-käyttötason omaavien tilien luonnissa.
