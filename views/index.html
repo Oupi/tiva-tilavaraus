@@ -52,7 +52,7 @@
 						</div>
 
 						<div class="modal-body">
-							<form action="/insert-reservation" method="post">
+							<form action="/insert-reservation" id="new-reservation" method="post">
 								<div class="form-group">
 									<label for="room">Tila:</label>
 									<input type="text" class="form-control" name="room" id="room" autofocus>
@@ -78,7 +78,7 @@
       <div class="row">
         <div class="col-sm-3">
           <h4>Päivämäärä</h4>
-          <input type="text" id="datepicker" placeholder="Valitse pvm"></input>
+          <input type="date" id="get-reservations-input"></input>
 					<br><br>
 					<button class="btn btn-info" id="get-reservations">Hae varaukset</button>
         </div>

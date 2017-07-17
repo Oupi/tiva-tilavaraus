@@ -1,5 +1,20 @@
+//Localizes Date().toDateInputValue() timezone
+Date.prototype.toDateInputValue = (function() {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0,10);
+});
+
 $(document).ready(function(){
+	$("#datepicker").datepicker();
+	$('#get-reservations-input').val(new Date().toDateInputValue());
+	
+	$( "#new-reservation" ).submit(function( event ) {
+		alert("Varaus luotu.");
+	});
+	
 	$("#get-reservations").click(function(){
+		$("#reslist").empty();
     $.get("/get-reservation", function(data){
       $(jQuery.parseJSON(data)).each(function() {
           var room = this.room;
@@ -14,7 +29,6 @@ $(document).ready(function(){
     });
   });
 	
-	$("#datepicker").datepicker();
 	$('[data-toggle="popover"]').popover({
 		title: "<h4>Kirjautumistiedot</h4>",
 		content: "<form>Sähköposti <br> <input type='email'></input> <br> Salasana <br> <input type='password'></input> <br><br> <input type='submit' class='btn btn-default' value='Kirjaudu'></input></form>", html: true
