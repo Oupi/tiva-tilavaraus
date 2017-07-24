@@ -1,0 +1,56 @@
+﻿/////////////
+///Varaus:///
+/////////////
+ReservationController & Factory
+
+Luo varaus
+POST api/reservation
+
+(( Hae yksi varaus ))
+(( GET api/reservation/:id ))
+
+Hae kaikki yhden tilan varaukset
+GET api/reservation/:id        (id = room id)
+
+Hae käyttäjän kaikki varaukset
+GET api/reservation/:id
+
+Hae tilan varaukset aikavälillä
+GET api/reservation/?id=x&start=y&end=z
+
+Muokkaa varausta
+UPDATE api/reservation/:id
+
+Poista varaus
+DELETE api/reservation/:id
+
+///////////////
+///Käyttäjä:///
+///////////////
+UserController & Factory
+
+Rekisteröi käyttäjä
+POST /register
+
+Kirjaudu sisään
+POST /login
+
+Muokkaa käyttäjää
+PUT api/user/:id
+
+Poista käyttäjä
+DELETE api/user/:id
+
+///////////
+///Tila:///
+///////////
+RoomController & Factory
+
+Luo uusi tila
+POST api/room
+
+Muokkaa tilaa
+PUT api/room/:id
+
+Poista tila
+DELETE api/room/:id
