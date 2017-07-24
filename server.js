@@ -53,6 +53,7 @@ app.get('/get-reservation', function(req, res, next){
       console.log("retrieved records:");
       console.log(docs);
       res.send(JSON.stringify(docs));
+      db.close();
     });
   });
 });
