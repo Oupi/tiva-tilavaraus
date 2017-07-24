@@ -1,3 +1,5 @@
+var app = angular.module('tivaApp', ['Routes', 'Controllers']);
+
 //Localizes Date().toDateInputValue() timezone
 Date.prototype.toDateInputValue = (function() {
     var local = new Date(this);
@@ -8,11 +10,11 @@ Date.prototype.toDateInputValue = (function() {
 $(document).ready(function(){
 	$("#datepicker").datepicker();
 	$('#get-reservations-input').val(new Date().toDateInputValue());
-	
+
 	$( "#new-reservation" ).submit(function( event ) {
 		alert("Varaus luotu.");
 	});
-	
+
 	$("#get-reservations").click(function(){
 		$("#reslist").empty();
     $.get("/get-reservation", function(data){
@@ -28,7 +30,7 @@ $(document).ready(function(){
       });
     });
   });
-	
+
 	$('[data-toggle="popover"]').popover({
 		title: "<h4>Kirjautumistiedot</h4>",
 		content: "<form>Sähköposti <br> <input type='email'></input> <br> Salasana <br> <input type='password'></input> <br><br> <input type='submit' class='btn btn-default' value='Kirjaudu'></input></form>", html: true
