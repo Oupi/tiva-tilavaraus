@@ -28,14 +28,14 @@
 		<div class="container" id="main-title-div">
 			<h1 id="main-title">TiVa</h1>
 
-			<a class="navi" href="#" data-toggle="modal" data-target="#loginWindow" >
+			<a class="navi" href="#/" data-toggle="modal" data-target="#loginWindow" >
 				<span class="glyphicon glyphicon-log-in"></span> Kirjaudu sisään</a>
 
 			<a class="navi" href="#" data-toggle="modal" data-target="#registerWindow" >
 				<span class="glyphicon glyphicon-user"></span> Rekisteröidy</a>
 
 			<!-- Modal window for login -->
-			<div id="loginWindow" class="modal fade" role="dialog">
+			<div id="loginWindow" class="modal fade" role="dialog" ng-controller="UserController">
 				<div class="modal-dialog">
 					<div class="modal-content">
 
@@ -55,7 +55,7 @@
 								<label for="pword">Salasana:</label>
 								<input type="password" class="form-control" id="pword" ng-model="password">
 							</div>
-							<button class="btn btn-success">Kirjaudu</button>
+							<button class="btn btn-success" ng-click="login()" data-dismiss="modal">Kirjaudu</button>
 							<button class="btn btn-danger" data-dismiss="modal">Peruuta</button>
 						</div>
 					</div>
@@ -63,47 +63,48 @@
 			</div>
 
 			<!-- Modal window for registering new user -->
-			<div id="registerWindow" class="modal fade" role="dialog">
+			<div id="registerWindow" class="modal fade" role="dialog" ng-controller="UserController">
 				<div class="modal-dialog">
 					<div class="modal-content">
 
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h3>Luo käyttäjätili</h3>
-					</div>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h3>Luo käyttäjätili</h3>
+						</div>
 
-					<div class="modal-body">
-						<p>Luo käyttäjätili varataksesi tiloja ja katsoaksesi varauksiasi. <br>
-							Jos olet jo aikaisemmin luonut käyttäjätilin,
-							<a href="#" data-toggle="modal" data-target="#loginWindow" data-dismiss="modal">kirjaudu sisään</a></p>
-						<div class="form-group">
-							<label for="first-name">Etunimi:</label>
-							<input type="text" class="form-control" id="first-name" autofocus>
+						<div class="modal-body">
+							<p>Luo käyttäjätili varataksesi tiloja ja katsoaksesi varauksiasi. <br>
+								Jos olet jo aikaisemmin luonut käyttäjätilin,
+								<a href="#/login" data-toggle="modal" data-target="#loginWindow" data-dismiss="modal">kirjaudu sisään</a></p>
+							<div class="form-group">
+								<label for="first-name">Etunimi:</label>
+								<input type="text" class="form-control" id="first-name" ng-model="firstName" autofocus>
+							</div>
+							<div class="form-group">
+								<label for="last-name">Sukunimi:</label>
+								<input type="text" class="form-control" id="last-name" ng-model="lastName">
+							</div>
+							<div class="form-group">
+								<label for="mail">Sähköpostiosoite:</label>
+								<input type="email" class="form-control" id="mail" ng-model="email">
+							</div>
+							<div class="form-group">
+								<label for="pnumber">Puhelinnumero:</label>
+								<input type="text" class="form-control" id="pnumber" ng-model="pnumber">
+							</div>
+							<div class="form-group">
+								<label for="pword">Salasana:</label>
+								<input type="password" class="form-control" id="pword" ng-model="password">
+							</div>
+							<button class="btn btn-success" ng-click="register()" data-dismiss="modal">Rekisteröidy</button>
+							<button class="btn btn-danger" data-dismiss="modal">Peruuta</button>
 						</div>
-						<div class="form-group">
-							<label for="last-name">Sukunimi:</label>
-							<input type="text" class="form-control" id="last-name">
-						</div>
-						<div class="form-group">
-							<label for="mail">Sähköpostiosoite:</label>
-							<input type="email" class="form-control" id="mail">
-						</div>
-						<div class="form-group">
-							<label for="pnumber">Puhelinnumero:</label>
-							<input type="text" class="form-control" id="pnumber">
-						</div>
-						<div class="form-group">
-							<label for="pword">Salasana:</label>
-							<input type="password" class="form-control" id="pword">
-						</div>
-						<button class="btn btn-success">Rekisteröidy</button>
-						<button class="btn btn-danger" data-dismiss="modal">Peruuta</button>
 					</div>
 				</div>
 			</div>
+
 		</div>
 
-	</div>
 
 		<div class="container" id="second-title-div">
 			<h2 id="second-title">Tilanvarausjärjestelmä</h2>
@@ -161,6 +162,7 @@
         </div>
       </div>
 		</div>
+
 
 		<div class="container" id="footer">
 
