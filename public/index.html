@@ -45,9 +45,11 @@
 						</div>
 
 						<div class="modal-body">
+							<p>Jos sinulla ei ole käyttäjätiliä,
+								<a href="#" data-toggle="modal" data-target="#registerWindow" data-dismiss="modal">luo sellainen tästä</a></p>
 							<div class="form-group">
-								<label for="uName">Käyttäjänimi:</label>
-								<input type="text" class="form-control" id="uName" ng-model="userName" autofocus>
+								<label for="mail">Sähköpostiosoite:</label>
+								<input type="text" class="form-control" id="mail" ng-model="userName" autofocus>
 							</div>
 							<div class="form-group">
 								<label for="pword">Salasana:</label>
@@ -71,9 +73,9 @@
 					</div>
 
 					<div class="modal-body">
-					<p>Luo käyttäjätili varataksesi tiloja ja katsoaksesi varauksiasi. <br>
-						Jos olet jo aikaisemmin luonut käyttäjätilin,
-						<a href="#" data-toggle="modal" data-target="#loginWindow" data-dismiss="modal">kirjaudu sisään</a></p>
+						<p>Luo käyttäjätili varataksesi tiloja ja katsoaksesi varauksiasi. <br>
+							Jos olet jo aikaisemmin luonut käyttäjätilin,
+							<a href="#" data-toggle="modal" data-target="#loginWindow" data-dismiss="modal">kirjaudu sisään</a></p>
 						<div class="form-group">
 							<label for="first-name">Etunimi:</label>
 							<input type="text" class="form-control" id="first-name" autofocus>
