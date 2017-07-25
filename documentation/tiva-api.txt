@@ -4,25 +4,25 @@
 ReservationController & Factory
 
 Luo varaus
-POST api/reservation
+x POST api/reservation
 
 (( Hae yksi varaus ))
 (( GET api/reservation/:id ))
 
 Hae kaikki yhden tilan varaukset
-GET api/reservation/:id        (id = room id)
+x GET api/reservation/:id        (id = room id)
 
 Hae käyttäjän kaikki varaukset
-GET api/reservation/:id
+x GET api/reservation/:id
 
 Hae tilan varaukset aikavälillä
-GET api/reservation/?id=x&start=y&end=z
+x GET api/reservation/?id=x&start=y&end=z
 
 Muokkaa varausta
-UPDATE api/reservation/:id
+x UPDATE api/reservation/:id
 
 Poista varaus
-DELETE api/reservation/:id
+x DELETE api/reservation/:id
 
 ///////////////
 ///Käyttäjä:///

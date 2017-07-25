@@ -5,7 +5,7 @@ const ObjectId = Schema.ObjectId;
 // Create Schema and Model
 // Schema with expected fields and datatypes
 const ReservationSchema = new Schema({
-  room_id: ObjectId,
+  room_id: String,
   room: String,
   user: {
     userId: ObjectId,
@@ -13,9 +13,9 @@ const ReservationSchema = new Schema({
     email: String,
     phonenumber: String
   },
-  time_start: String,
-  time_end: String,
-  time_cancel: String
+  time_start: Date,
+  time_end: Date,
+  time_cancel: Date
 });
 
 // Every time new Reservation is made, it is made to reservation(s) collection
