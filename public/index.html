@@ -25,18 +25,90 @@
 				<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
 
-		<div class="container-fluid" id="main-title-div">
+		<div class="container" id="main-title-div">
 			<h1 id="main-title">TiVa</h1>
-      <!--Login popover -->
-      <a id="login" href="#" data-toggle="popover" data-placement="bottom" >
-        Kirjaudu sisään <span class="glyphicon glyphicon-triangle-bottom"></span></a>
+
+			<a class="navi" href="#" data-toggle="modal" data-target="#loginWindow" >
+				<span class="glyphicon glyphicon-log-in"></span> Kirjaudu sisään</a>
+
+			<a class="navi" href="#" data-toggle="modal" data-target="#registerWindow" >
+				<span class="glyphicon glyphicon-user"></span> Rekisteröidy</a>
+
+			<!-- Modal window for login -->
+			<div id="loginWindow" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h3>Kirjaudu sisään</h3>
+						</div>
+
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="uName">Käyttäjänimi:</label>
+								<input type="text" class="form-control" id="uName" ng-model="userName" autofocus>
+							</div>
+							<div class="form-group">
+								<label for="pword">Salasana:</label>
+								<input type="password" class="form-control" id="pword" ng-model="password">
+							</div>
+							<button class="btn btn-success">Kirjaudu</button>
+							<button class="btn btn-danger" data-dismiss="modal">Peruuta</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modal window for registering new user -->
+			<div id="registerWindow" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h3>Luo käyttäjätili</h3>
+					</div>
+
+					<div class="modal-body">
+					<p>Luo käyttäjätili varataksesi tiloja ja katsoaksesi varauksiasi. <br>
+						Jos olet jo aikaisemmin luonut käyttäjätilin,
+						<a href="#" data-toggle="modal" data-target="#loginWindow" data-dismiss="modal">kirjaudu sisään</a></p>
+						<div class="form-group">
+							<label for="first-name">Etunimi:</label>
+							<input type="text" class="form-control" id="first-name" autofocus>
+						</div>
+						<div class="form-group">
+							<label for="last-name">Sukunimi:</label>
+							<input type="text" class="form-control" id="last-name">
+						</div>
+						<div class="form-group">
+							<label for="mail">Sähköpostiosoite:</label>
+							<input type="email" class="form-control" id="mail">
+						</div>
+						<div class="form-group">
+							<label for="pnumber">Puhelinnumero:</label>
+							<input type="text" class="form-control" id="pnumber">
+						</div>
+						<div class="form-group">
+							<label for="pword">Salasana:</label>
+							<input type="password" class="form-control" id="pword">
+						</div>
+						<button class="btn btn-success">Rekisteröidy</button>
+						<button class="btn btn-danger" data-dismiss="modal">Peruuta</button>
+					</div>
+				</div>
+			</div>
 		</div>
 
-		<div class="container-fluid" id="second-title-div">
+	</div>
+
+		<div class="container" id="second-title-div">
 			<h2 id="second-title">Tilanvarausjärjestelmä</h2>
 		</div>
 
-		<div class="container-fluid" id="content">
+		<!-- Content starts here -->
+		<div class="container" id="content">
 			<br />
 			<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#reserveWindow">Varaa tila</button>
 			<br />
@@ -88,7 +160,7 @@
       </div>
 		</div>
 
-		<div class="container-fluid" id="footer">
+		<div class="container" id="footer">
 
 		</div>
 	</body>

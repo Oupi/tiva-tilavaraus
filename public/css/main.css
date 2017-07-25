@@ -33,9 +33,9 @@ html, body {
 	height: 50px; /* TEMP */
 }
 
-#login {
+.navi {
 	float: right;
-	margin-right: 4%;
+	margin-right: 2%;
 	color: white;
 }
 
