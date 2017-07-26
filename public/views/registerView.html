@@ -1,0 +1,27 @@
+<form class="col-xs-4">
+	<h3 class="page-header">Luo käyttäjätili</h3>
+	<p>Luo käyttäjätili varataksesi tiloja ja katsoaksesi varauksiasi.
+		Jos olet jo aikaisemmin luonut käyttäjätilin,<a href="#/login"> kirjaudu sisään</a>
+	</p>
+	<div class="form-group">
+		<label for="first-name">Etunimi</label>
+		<input type="text" class="form-control" name="first-name" ng-model="firstName" autofocus>
+	</div>
+	<div class="form-group">
+		<label for="last-name">Sukunimi</label>
+		<input type="text" class="form-control" name="last-name" ng-model="lastName">
+	</div>
+	<div class="form-group">
+		<label for="mail">Sähköpostiosoite</label>
+		<input type="email" class="form-control" name="mail" ng-model="email">
+	</div>
+	<div class="form-group">
+		<label for="pnumber">Puhelinnumero</label>
+		<input type="text" class="form-control" name="pnumber" ng-model="pnumber">
+	</div>
+	<div class="form-group">
+		<label for="pword">Salasana</label>
+		<input type="password" class="form-control" name="pword" ng-model="password">
+	</div>
+  <button class="btn btn-info" ng-click="register()">Rekisteröidy</button>
+</form>

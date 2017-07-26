@@ -1,0 +1,15 @@
+<form class="col-xs-4">
+	<h3 class="page-header">Kirjaudu sisään</h3>
+	<p>Jos sinulla ei ole käyttäjätiliä,
+		<a href="#/register">luo sellainen tästä</a>
+	</p>
+	<div class="form-group">
+		<label for="uname">Käyttäjänimi</label>
+		<input type="text" name="uname" class="form-control" ng-model="userName"/>
+	</div>
+	<div class="form-group">
+		<label for="pword">Salasana</label>
+		<input type="password" name="pword" class="form-control" ng-model="password"/>
+	</div>
+  <button class="btn btn-info" ng-click="login()">Kirjaudu</button>
+</form>

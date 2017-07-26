@@ -79,7 +79,7 @@ userRouter.put("/reservation/:reservationId", function(req, res) {
   console.log(req.body);
   MONGO.connect(URL, function(err, db) {
     ASSERT.equal(null, err);
-    db.collection("reservations").updateOne({_id: req.body.reservationId},{reservation} function(err, result) {
+    db.collection("reservations").updateOne({_id: req.body.reservationId},{reservation}, function(err, result) {
       ASSERT.equal(null, err);
       console.log("Reservation updated");
       db.close();
@@ -92,7 +92,7 @@ userRouter.delete("/reservation/:reservationId", function(req, res) {
   console.log(req.body);
   MONGO.connect(URL, function(err, db) {
     ASSERT.equal(null, err);
-    db.collection("reservations").deleteOne({_id: req.body.reservationId} function(err, result) {
+    db.collection("reservations").deleteOne({_id: req.body.reservationId}, function(err, result) {
       ASSERT.equal(null, err);
       console.log("Reservation deleted");
       db.close();

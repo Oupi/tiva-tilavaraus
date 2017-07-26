@@ -28,141 +28,31 @@
 		<div class="container" id="main-title-div">
 			<h1 id="main-title">TiVa</h1>
 
-			<a class="navi" href="#/" data-toggle="modal" data-target="#loginWindow" >
+			<a class="navi" href="#/login">
 				<span class="glyphicon glyphicon-log-in"></span> Kirjaudu sisään</a>
 
-			<a class="navi" href="#" data-toggle="modal" data-target="#registerWindow" >
+			<a class="navi" href="#/register">
 				<span class="glyphicon glyphicon-user"></span> Rekisteröidy</a>
-
-			<!-- Modal window for login -->
-			<div id="loginWindow" class="modal fade" role="dialog" ng-controller="UserController">
-				<div class="modal-dialog">
-					<div class="modal-content">
-
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h3>Kirjaudu sisään</h3>
-						</div>
-
-						<div class="modal-body">
-							<p>Jos sinulla ei ole käyttäjätiliä,
-								<a href="#" data-toggle="modal" data-target="#registerWindow" data-dismiss="modal">luo sellainen tästä</a></p>
-							<div class="form-group">
-								<label for="mail">Sähköpostiosoite:</label>
-								<input type="text" class="form-control" id="mail" ng-model="userName" autofocus>
-							</div>
-							<div class="form-group">
-								<label for="pword">Salasana:</label>
-								<input type="password" class="form-control" id="pword" ng-model="password">
-							</div>
-							<button class="btn btn-success" ng-click="login()" data-dismiss="modal">Kirjaudu</button>
-							<button class="btn btn-danger" data-dismiss="modal">Peruuta</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Modal window for registering new user -->
-			<div id="registerWindow" class="modal fade" role="dialog" ng-controller="UserController">
-				<div class="modal-dialog">
-					<div class="modal-content">
-
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h3>Luo käyttäjätili</h3>
-						</div>
-
-						<div class="modal-body">
-							<p>Luo käyttäjätili varataksesi tiloja ja katsoaksesi varauksiasi. <br>
-								Jos olet jo aikaisemmin luonut käyttäjätilin,
-								<a href="#/login" data-toggle="modal" data-target="#loginWindow" data-dismiss="modal">kirjaudu sisään</a></p>
-							<div class="form-group">
-								<label for="first-name">Etunimi:</label>
-								<input type="text" class="form-control" id="first-name" ng-model="firstName" autofocus>
-							</div>
-							<div class="form-group">
-								<label for="last-name">Sukunimi:</label>
-								<input type="text" class="form-control" id="last-name" ng-model="lastName">
-							</div>
-							<div class="form-group">
-								<label for="mail">Sähköpostiosoite:</label>
-								<input type="email" class="form-control" id="mail" ng-model="email">
-							</div>
-							<div class="form-group">
-								<label for="pnumber">Puhelinnumero:</label>
-								<input type="text" class="form-control" id="pnumber" ng-model="pnumber">
-							</div>
-							<div class="form-group">
-								<label for="pword">Salasana:</label>
-								<input type="password" class="form-control" id="pword" ng-model="password">
-							</div>
-							<button class="btn btn-success" ng-click="register()" data-dismiss="modal">Rekisteröidy</button>
-							<button class="btn btn-danger" data-dismiss="modal">Peruuta</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
 		</div>
-
 
 		<div class="container" id="second-title-div">
 			<h2 id="second-title">Tilanvarausjärjestelmä</h2>
 		</div>
 
-		<!-- Content starts here -->
-		<div class="container" id="content">
-			<br />
-			<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#reserveWindow">Varaa tila</button>
-			<br />
-
-			<div id="reserveWindow" class="modal fade" role="dialog">
-				<div class="modal-dialog">
-					<div class="modal-content">
-
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h3>Varaa tila</h3>
-						</div>
-
-						<div class="modal-body">
-							<form action="/insert-reservation" id="new-reservation" method="post">
-								<div class="form-group">
-									<label for="room">Tila:</label>
-									<input type="text" class="form-control" name="room" id="room" autofocus>
-								</div>
-								<div class="form-group">
-									<label for="time_start">Alkuaika:</label>
-									<input type="datetime-local" class="form-control" name="time_start" id="time_start">
-								</div>
-								<div class="form-group">
-									<label for="time_end">Loppuaika:</label>
-									<input type="datetime-local" class="form-control" name="time_end" id="time_end">
-								</div>
-								<button type="submit" class="btn btn-success">Varaa</button>
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Peruuta</button>
-							</form>
-						</div>
-
-					</div>
-				</div>
-			</div>
-
-      <h3 class="page-header">Lista varauksista</h3>
-      <div class="row">
-        <div class="col-sm-3">
-          <h4>Päivämäärä</h4>
-          <input type="date" id="get-reservations-input"></input>
-					<br><br>
-					<button class="btn btn-info" id="get-reservations">Hae varaukset</button>
-        </div>
-        <div class="col-sm-9">
-          <h5>Valittu pvm</h5>
-          <ul class="list-group" id="reslist"></ul>
-        </div>
-      </div>
+		<!-- Navigation bar -->
+		<div class="container">
+			<nav class="navbar navbar-default">
+				<ul class="nav navbar-nav">
+					<li><a href="#/reservation">Varaukset</a></li>
+					<li><a href="#/account">Oma tili</a></li>
+				</ul>
+			</nav>
 		</div>
-
+		
+		<!-- Content here -->
+		<div class="container" id="content">
+			<div ng-view></div>
+		</div>
 
 		<div class="container" id="footer">
 

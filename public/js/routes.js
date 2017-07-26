@@ -23,9 +23,9 @@ app.config(function($routeProvider) {
 
 	}).when("/reservation", {
 			controller:"ReservationController",
-			templateUrl:"views/reservationView"
+			templateUrl:"views/reservationView.html"
 
   }).
-	otherwise({redirectTo:"/"});
+	otherwise({redirectTo:"/reservation"});
 
 });
