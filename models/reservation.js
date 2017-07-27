@@ -14,6 +14,6 @@ module.exports = mongoose.model("Reservation", new Schema({
     phonenumber: {type: String}
   },
   time_start: {type: Date},
-  time_end: {type: Date}
+  time_end: {type: Date},
   time_cancel: {type: Date}
 }));
