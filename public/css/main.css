@@ -25,7 +25,7 @@ html, body {
 }
 
 #content {
-	height: 70%; /* TEMP */
+	height: auto; /* TEMP */
 }
 
 #footer {
