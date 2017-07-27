@@ -28,11 +28,6 @@
 		<div class="container" id="main-title-div">
 			<h1 id="main-title">TiVa</h1>
 
-			<a class="navi" href="#/login">
-				<span class="glyphicon glyphicon-log-in"></span> Kirjaudu sisään</a>
-
-			<a class="navi" href="#/register">
-				<span class="glyphicon glyphicon-user"></span> Rekisteröidy</a>
 		</div>
 
 		<div class="container" id="second-title-div">
@@ -42,13 +37,28 @@
 		<!-- Navigation bar -->
 		<div class="container">
 			<nav class="navbar navbar-default">
-				<ul class="nav navbar-nav">
-					<li><a href="#/reservation">Varaukset</a></li>
-					<li><a href="#/account">Oma tili</a></li>
-				</ul>
+				<div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+    		</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li><a href="#/reservation">Varaukset</a></li>
+						<li><a href="#/account">Oma tili</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+	        	<li><a href="#/login">
+							<span class="glyphicon glyphicon-log-in"></span> Kirjaudu sisään</a></li>
+	        	<li><a href="#/register">
+							<span class="glyphicon glyphicon-user"></span> Rekisteröidy</a></li>
+	      	</ul>
+				</div>
 			</nav>
 		</div>
-		
+
 		<!-- Content here -->
 		<div class="container" id="content">
 			<div ng-view></div>
