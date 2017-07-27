@@ -33,12 +33,16 @@ html, body {
 	height: 50px; /* TEMP */
 }
 
+#nav-itemss {
+	padding: 0px;
+}
+
 .navi {
 	float: right;
 	margin-right: 2%;
 	color: white;
 }
 
-.popover {
-	color: black;
+.navbar, .navbar-default {
+	background-color: white;
 }
