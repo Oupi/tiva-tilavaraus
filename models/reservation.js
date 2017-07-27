@@ -1,26 +1,19 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
+var mongoose = require('mongoose');
 
-// Create Schema and Model
-// Schema with expected fields and datatypes
-const ReservationSchema = new Schema({
-  room_id: String,
-  room: String,
+
+var Schema = mongoose.Schema;
+var ObjectId = Schema.ObjectId;
+
+module.exports = mongoose.model("Reservation", new Schema({
+  room_id: {type: ObjectId},
+  room: {type: String},
   user: {
-    userId: ObjectId,
-    name: String,
-    email: String,
-    phonenumber: String
+    user_id: {type: ObjectId},
+    name: {type: String},
+    email: {type: String},
+    phonenumber: {type: String}
   },
-  time_start: Date,
-  time_end: Date,
-  time_cancel: Date
-});
-
-// Every time new Reservation is made, it is made to reservation(s) collection
-// and is based to ReservationSchema
-const Reservation = mongoose.model('reservation', ReservationSchema);
-
-// Export this and we can use this elsewhere
-module.exports = Reservation;
+  time_start: {type: Date},
+  time_end: {type: Date}
+  time_cancel: {type: Date}
+}));
