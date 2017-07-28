@@ -1,19 +1,30 @@
 var app = angular.module('Controllers', ['Factories']);
 
+// MainController, available in entire app
+app.controller('MainController', function($scope){
+	
+});
+
 // UserController
 app.controller('UserController', function($scope, UserFactory){
 	
-	$scope.login = function(userName, password){
-		UserFactory.login(userName, password)
+	$scope.login = function(){
+		UserFactory.login($scope.userName, $scope.password)
 			.then(function(data) {
-			
+				console.log(data.data);
 			},function(reason) {
-				
+				console.log(reason.data);
 			});
 	}
 	
 	$scope.register = function(){
-		
+		UserFactory.register($scope.firstName, $scope.lastName, $scope.email,
+													$scope.pnumber, $scope.password)
+			.then(function(data) {
+				console.log(data.data);
+			},function(reason) {
+				console.log(reason.data);
+			});
 	}
 	
 	$scope.editUser = function(){

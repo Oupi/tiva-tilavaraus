@@ -14,11 +14,17 @@ app.factory('UserFactory', function($http) {
     });
   }
 	
-  factory.register = function(userName, password) {
+  factory.register = function(firstName, lastName, email, pnumber, password) {
     return $http({
         method:"POST",
         url:"register",
-        data:{"userName":userName,"password":password},
+        data:{
+					"fistName":firstName,
+					"lastName":lastName,
+					"pnumber":email,
+					"userName":pnumber,
+					"password":password
+				},
         headers:{"Content-Type":"application/json"}
     });
   }

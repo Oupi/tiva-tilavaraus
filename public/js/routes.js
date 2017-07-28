@@ -6,10 +6,7 @@ app.config(['$locationProvider', function($locationProvider) {
 
 app.config(function($routeProvider) {
 
-	$routeProvider.when("/", {
-			controller:"MainController"
-
-	}).when("/login", {
+	$routeProvider.when("/login", {
 			controller:"UserController",
 			templateUrl:"views/loginView.html"
 
