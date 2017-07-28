@@ -54,9 +54,20 @@ app.factory('ReservationFactory', function($http, UserFactory) {
 
 	var factory = {};
 
-	factory.makeReservation = function(id, roomId, startTime, endTime){
-
-
+	factory.makeReservation = function(roomId, roomName, user, startTime, endTime){
+		return $http({
+			method:"POST",
+			url:"reservation",
+			data:{
+				"room_id":roomId,
+				"room":roomName,
+				"user":user,
+				"time_start":startTime,
+				"time_end":endTime,
+				"time_cancel":null
+			},
+			headers:{"Content-Type":"application/json"}
+    });
 	};
 	factory.findReservationsByRoom = function(roomId){
 

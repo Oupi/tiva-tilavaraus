@@ -40,9 +40,9 @@ app.controller('UserController', function($scope, UserFactory){
 // ReservationController
 app.controller('ReservationController', function($scope, UserFactory, ReservationFactory){
 
-	$scope.makeReservation = function(/*this needs roomId*/ selectedRoom, user,
-																		startTime, endTime){
-		ReservationFactory.makeReservation()
+	$scope.makeReservation = function(){
+		ReservationFactory.makeReservation(/*this needs roomId*/ $scope.selectedRoom,
+																			$scope.user, $scope.startTime, $scope.endTime)
 			.then(function(data) {
 				console.log(data.data);
 			},function(reason) {
