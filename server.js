@@ -9,9 +9,9 @@ var path        = require("path");
 
 var userRouter  = require("./backend/userRouter");
 
-var User        = require(".backend/models/user");
-var Room        = require(".backend/models/room");
-var Reservation = require(".backend/models/reservation");
+var User        = require("./backend/models/user");
+var Room        = require("./backend/models/room");
+var Reservation = require("./backend/models/reservation");
 
 var url         = "mongodb://localhost:27017/tiva";
 
