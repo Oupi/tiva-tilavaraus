@@ -47,3 +47,7 @@ html, body {
 .navbar, .navbar-default {
 	background-color: white;
 }
+
+.align-right {
+	float: right;
+}
