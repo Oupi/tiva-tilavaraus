@@ -26,6 +26,7 @@ html, body {
 
 #content {
 	height: auto; /* TEMP */
+	margin-bottom: 3%;
 }
 
 #footer {

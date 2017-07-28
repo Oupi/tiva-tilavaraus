@@ -1,31 +1,56 @@
-<h3>Varaa tila</h3>
+<h3 class="page-header">Varaa tila</h3>
 
-<form action="/insert-reservation" id="new-reservation" method="post">
-	<div class="form-group">
-		<label for="room">Tila:</label>
-		<input type="text" class="form-control" name="room" id="room" autofocus>
-	</div>
-	<div class="form-group">
-		<label for="time_start">Alkuaika:</label>
-		<input type="datetime-local" class="form-control" name="time_start" id="time_start">
-	</div>
-	<div class="form-group">
-		<label for="time_end">Loppuaika:</label>
-		<input type="datetime-local" class="form-control" name="time_end" id="time_end">
-	</div>
-	<button type="submit" class="btn btn-info">Varaa</button>
-</form>
-
-<h3 class="page-header">Lista varauksista</h3>
 <div class="row">
 	<div class="col-sm-3">
-		<h4>Päivämäärä</h4>
-		<input type="date" id="get-reservations-input"></input>
-		<br><br>
-		<button class="btn btn-info" id="get-reservations">Hae varaukset</button>
+		<div class="well">
+			<form>
+			  <div class="form-group">
+			    <label for="sel1">Valitse varattava tila:</label>
+			    <select class="form-control" id="sel1">
+			      <option>Saunatila</option>
+			    </select>
+				</div>
+			</form>
+		</div>
 	</div>
 	<div class="col-sm-9">
-		<h5>Valittu pvm</h5>
-		<ul class="list-group" id="reslist"></ul>
 	</div>
+</div>
+
+
+<div class="row">
+
+	<div class="col-sm-3">
+		<div class="well">
+			<h4>Päivämäärä</h4>
+			<input type="date" ng-model="currentDate" id="get-reservations-input"></input>
+			<br><br>
+			<button class="btn btn-info" id="get-reservations">Hae varaukset</button>
+		</div>
+	</div>
+
+	<div class="col-sm-6">
+		<div class="well">
+			<h4>Valittu päivä</h4>
+			<ul class="list-group" id="reslist"></ul>
+		</div>
+	</div>
+
+	<div class="col-sm-3">
+		<div class="well">
+			<h4>Tee varaus</h4>
+			<form action="/insert-reservation" id="new-reservation" method="post">
+				<div class="form-group">
+					<label for="time_start">Alkuaika:</label>
+					<input type="datetime-local" class="form-control" name="time_start" id="time_start">
+				</div>
+				<div class="form-group">
+					<label for="time_end">Loppuaika:</label>
+					<input type="datetime-local" class="form-control" name="time_end" id="time_end">
+				</div>
+				<button type="submit" class="btn btn-info">Varaa</button>
+			</form>
+		</div>
+	</div>
+
 </div>
