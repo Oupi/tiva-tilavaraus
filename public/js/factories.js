@@ -4,6 +4,7 @@ var app = angular.module('Factories', []);
 app.factory('UserFactory', function($http) {
 
 	var factory = {};
+	var user = {};
 
 	factory.login = function(userName, password) {
     return $http({
@@ -13,7 +14,7 @@ app.factory('UserFactory', function($http) {
         headers:{"Content-Type":"application/json"}
     });
   };
-	
+
   factory.register = function(firstName, lastName, email, pnumber, password) {
     return $http({
         method:"POST",
@@ -34,7 +35,14 @@ app.factory('UserFactory', function($http) {
 	};
 
 	factory.deleteUser = function() {
+	};
 
+	factory.getUser = function() {
+		return user;
+	};
+
+	factory.setUser = function(u) {
+		user = u;
 	};
 
 	return factory;
@@ -42,14 +50,14 @@ app.factory('UserFactory', function($http) {
 });
 
 // ReservationFactory
-app.factory('ReservationFactory', function($http) {
+app.factory('ReservationFactory', function($http, UserFactory) {
 
 	var factory = {};
 
-	factory.makeReservation = function(userId, roomId, starTime, endTime){
+	factory.makeReservation = function(id, roomId, startTime, endTime){
+
 
 	};
-
 	factory.findReservationsByRoom = function(roomId){
 
 	};

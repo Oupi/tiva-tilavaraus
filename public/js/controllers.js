@@ -38,10 +38,16 @@ app.controller('UserController', function($scope, UserFactory){
 });
 
 // ReservationController
-app.controller('ReservationController', function($scope, ReservationFactory){
+app.controller('ReservationController', function($scope, UserFactory, ReservationFactory){
 	
-	$scope.makeReservation = function(userId, roomId, starTime, endTime){
-		
+	$scope.makeReservation = function(/*this needs roomId*/ $scope.selectedRoom, UserFactory.getUser(), 
+																		$scope.startTime, $scope.endTime){
+		ReservationFactory.makeReservation()
+			.then(function(data) {
+				console.log(data.data);
+			},function(reason) {
+				console.log(reason.data);
+			});
 	}
 	
 	$scope.findReservationsByRoom = function(roomId){

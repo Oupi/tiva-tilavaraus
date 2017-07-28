@@ -6,7 +6,7 @@
 			<form>
 			  <div class="form-group">
 			    <label for="sel1">Valitse varattava tila:</label>
-			    <select class="form-control" id="sel1">
+			    <select class="form-control" id="sel1" ng-model="selectedRoom">
 			      <option>Saunatila</option>
 			    </select>
 				</div>
@@ -39,16 +39,18 @@
 	<div class="col-sm-3">
 		<div class="well">
 			<h4>Tee varaus</h4>
-			<form action="/insert-reservation" id="new-reservation" method="post">
+			<form id="new-reservation">
 				<div class="form-group">
 					<label for="time_start">Alkuaika:</label>
-					<input type="datetime-local" class="form-control" name="time_start" id="time_start">
+					<input type="datetime-local" class="form-control" name="time_start" id="time_start"
+					ng-model="startTime">
 				</div>
 				<div class="form-group">
 					<label for="time_end">Loppuaika:</label>
-					<input type="datetime-local" class="form-control" name="time_end" id="time_end">
+					<input type="datetime-local" class="form-control" name="time_end" id="time_end"
+					ng-model="endTime">
 				</div>
-				<button type="submit" class="btn btn-info">Varaa</button>
+				<button type="button" class="btn btn-info" ng-click="makeReservation()">Varaa</button>
 			</form>
 		</div>
 	</div>
