@@ -4,6 +4,7 @@ var app = angular.module('Factories', []);
 app.factory('UserFactory', function($http) {
 	
 	var factory = {};
+	var user = {};
 	
 	factory.login = function(userName, password) {
     return $http({
@@ -37,16 +38,24 @@ app.factory('UserFactory', function($http) {
 	
 	}
 	
+	factory.getUser = function() {
+		return user;
+	}
+	
+	factory.setUser = function(u) {
+		user = u;
+	}
+	
 	return factory;
 	
 });
 
 // ReservationFactory
-app.factory('ReservationFactory', function($http) {
+app.factory('ReservationFactory', function($http, UserFactory) {
 	
 	var factory = {};
 	
-	factory.makeReservation = function(userId, roomId, starTime, endTime){
+	factory.makeReservation = function(id, roomId, startTime, endTime){
 		
 	}
 	
