@@ -58,8 +58,13 @@ app.controller('ReservationController', function($scope, UserFactory, Reservatio
 
 	}
 
-	$scope.findReservationsByTime = function(startTime, endTime){
-
+	$scope.findReservationsByTime = function(){
+		ReservationFactory.findReservationsByTime($scope.startTime, $scope.endTime)
+			.then(function(data) {
+				console.log(data.data);
+			},function(reason) {
+				console.log(reason.data);
+			});
 	}
 
 	$scope.removeReservation = function(reservationId){

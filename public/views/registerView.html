@@ -7,15 +7,16 @@
 			</p>
 			<div class="form-group">
 				<label for="first-name">Etunimi</label>
-				<input type="text" class="form-control" name="first-name" ng-model="firstName" autofocus>
+				<input type="text" class="form-control" name="first-name" ng-model="firstName"
+				required autofocus>
 			</div>
 			<div class="form-group">
 				<label for="last-name">Sukunimi</label>
-				<input type="text" class="form-control" name="last-name" ng-model="lastName">
+				<input type="text" class="form-control" name="last-name" ng-model="lastName" required>
 			</div>
 			<div class="form-group">
 				<label for="mail">Sähköpostiosoite</label>
-				<input type="email" class="form-control" name="mail" ng-model="email">
+				<input type="email" class="form-control" name="mail" ng-model="email" required>
 			</div>
 			<div class="form-group">
 				<label for="pnumber">Puhelinnumero</label>
@@ -23,7 +24,7 @@
 			</div>
 			<div class="form-group">
 				<label for="pword">Salasana</label>
-				<input type="password" class="form-control" name="pword" ng-model="password">
+				<input type="password" class="form-control" name="pword" ng-model="password" required>
 			</div>
 		  <button class="btn btn-info" ng-click="register()">Rekisteröidy</button>
 		</form>

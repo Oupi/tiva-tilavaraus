@@ -78,7 +78,11 @@ app.factory('ReservationFactory', function($http, UserFactory) {
 	};
 
 	factory.findReservationsByTime = function(startTime, endTime){
-
+		return $http({
+			method:"GET",
+			url:"reservation?time_start=" + startTime + "&time_end=" + endTime,
+			headers:{"Content-Type":"application/json"}
+    });
 	};
 
 	factory.removeReservation = function(reservationId){
