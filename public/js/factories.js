@@ -20,10 +20,10 @@ app.factory('UserFactory', function($http) {
         method:"POST",
         url:"register",
         data:{
-					"fistName":firstName,
+					"firstName":firstName,
 					"lastName":lastName,
-					"pnumber":email,
-					"userName":pnumber,
+					"email":email,
+					"pnumber":pnumber,
 					"password":password
 				},
         headers:{"Content-Type":"application/json"}
