@@ -7,11 +7,10 @@ var ObjectId = Schema.ObjectId;
 
 //TODO: Change id numbers to ObjectIds when in production
 module.exports = mongoose.model("Reservation", new Schema({
-  _id: {type:Number},
-  room_id: {type: Number},
+  room_id: {type: ObjectId},
   room: {type: String},
   user: {
-    user_id: {type: Number},
+    user_id: {type: ObjectId},
     name: {type: String},
     email: {type: String},
     phonenumber: {type: String}

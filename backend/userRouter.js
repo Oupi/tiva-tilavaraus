@@ -1,5 +1,4 @@
 var express = require("express");
-// var mongo = require("mongodb").MongoClient;
 var mongoose = require("mongoose");
 var assert = require("assert");
 var bodyParser = require("body-parser");
@@ -7,7 +6,8 @@ var path = require("path");
 
 var Reservation = require("./models/reservation");
 
-var url = "mongodb://localhost:27017/tiva";
+var config = require("./config");
+var url = config.database;
 var userRouter = express.Router();
 
 userRouter.use(function(req, res, next) {
@@ -23,13 +23,9 @@ userRouter.use(function(req, res, next) {
 
 // Make reservation
 userRouter.post("/reservation", function(req, res) {
-  var newReservation = {
-    room: req.body.room,
-    time_start: req.body.time_start,
-    time_end: req.body.time_end
-  };
+  var newReservation = new Reservation(req.body);
 
-  Reservation.insertOne(newReservation, function(err, result) {
+  newReservation.save(function(err, result) {
     assert.equal(null, err);
     res.send("Reservation inserted");
   });
@@ -37,15 +33,10 @@ userRouter.post("/reservation", function(req, res) {
 
 // Update reservation
 userRouter.put("/reservation/:reservationId", function(req, res, next) {
-  var reservation = new Reservation(req.body);
+  var newReservation = req.body;
+  var tempId = req.headers._id;
 
-  Reservation.update({_id:reservation._id},{
-    $set:{
-      room:reservation.room,
-      time_start:reservation.time_start,
-      time_end:reservation.time_end
-    }
-  }, function(err, result){
+  Reservation.update({_id:tempId},{$set:newReservation}, function(err, result){
     assert.equal(null, err);
     res.send("Reservation updated");
   });
@@ -53,126 +44,119 @@ userRouter.put("/reservation/:reservationId", function(req, res, next) {
 
 // Delete reservation
 userRouter.delete("/reservation/:reservationId", function(req, res) {
-  var reservation = new Reservation(req.body);
+  var tempId = req.headers._id;
 
-  Reservation.findOneAndRemove({_id:reservation._id}, function(err, result){
+  Reservation.findOneAndRemove({_id:tempId}, function(err, result){
     assert.equal(null, err);
-    res.send("Reservation with id: " + reservation._id + " deleted");
+    res.send("Reservation with id: " + tempId + " deleted");
   });
 });
 
 
-// Get all reservations for user
+/*
+** Get all reservations by user or room id. Id must be defined,
+** Otherwise will not return anything
+*/
 userRouter.get("/reservation/:id", function(req, res) {
   var reservations = [];
+  var i;
 
+  // Checking id_type for user and then returning array of reservations if there
+  // is reservations
+  // TODO check that user can only search for own reservations
   if(req.query.id_type == "user"){
-
-  } else if(req.query.id_type == "room") {
-
-  } else {
-
-  }
-  Reservation.find({"user.user_id":req.headers.user_id}, function(err, items){
-    if (items.length > 0) {
-      items.forEach(function(reservation) {
-        reservations.push(reservation);
-      });
-      // Return reservations list as json-object
-      res.json(reservations);
-    } else {
-      res.send("No reservations found for userId: " + req.headers.user_id);
-    }
-  });
-});
-
-
-// Get all reservations for room with id
-userRouter.get("/reservation/:roomId", function(req, res) {
-  var reservations = [];
-
-  Reservation.find({room_id: req.query.room_id}, function(err, items){
-    assert.equal(null, err);
-    if(items.length > 0){
-      for (var i = 0; i < items.length; i++) {
-        reservations.push(items[i]);
-      }
-      res.json(reservations);
-    } else {
-      res.send("No records found");
-    }
-  });
-});
-
-/**
-// TODO: make this function work
-// Get all reservations for room with date params
-userRouter.get("/reservation/rooms/?room_id&time_start&time_end", function(req, res) {
-  var reservations = [];
-  var reservationId = req.headers._id;
-  var roomId = req.headers.room_id;
-  var timeStart = req.headers.time_start;
-  var timeEnd = req.headers.time_end;
-
-  console.log(timeStart);
-  console.log(timeEnd);
-  // Open database connection
-  mongo.connect(url, function(err, db) {
-    console.log("Connected");
-    assert.equal(null, err);
-    var searchParam = {};
-
-    if (
-      (timeStart === null || timeStart === "" || timeStart === undefined) &&
-      (timeEnd === null || timeEnd === "" || timeEnd === undefined)
-    ) {
-      if (
-        (timeEnd !== null || timeEnd !== "" || timeEnd !== undefined) &&
-        (timeStart === null || timeStart === "" || timeStart === undefined)
-        ) {
-        searchParam = {
-          room_id: roomId,
-          time_end: { $lte: timeEnd }
+    Reservation.find({"user.user_id":req.headers._id}, function(err, items){
+      if (items.length > 0) {
+        for(i = 0; i < items.length; i++) {
+          reservations.push(items[i]);
         };
-      } else if (
-        (timeStart !== null || timeStart !== "" || timeStart !== undefined) &&
-        (timeEnd === null || timeEnd === "" || timeEnd === undefined)
-      ) {
-        searchParam = {
-          room_id: parseInt(roomId),
-          time_start: { $gte: timeStart }
-        };
-      } else {
-        searchParam = {
-          _id: parseInt(reservationId),
-          room_id: parseInt(roomId)
-        };
-      }
-    } else {
-      searchParam = {
-        room_id: roomId,
-        time_start: { $gte: timeStart },
-        time_end: { $lte: timeEnd }
-      };
-    }
-
-    var collection = db.collection("reservations");
-    var cursor = collection.find(searchParam);
-
-    cursor.toArray(function(err, docs){
-      assert.equal(null, err);
-      if(docs.length > 0){
-        docs.forEach(function(doc){
-          reservations.push(doc);
-        });
+        // Return reservations list as json-object
         res.json(reservations);
       } else {
-        res.send("No records found");
+        res.send("No reservations found for userId: " + req.headers._id);
       }
-      db.close();
     });
-  });
+  }
+  // Checking id_type for room and then returning array of reservations if there
+  // is reservations
+   else if(req.query.id_type == "room") {
+    Reservation.find({room_id: req.query._id}, function(err, items){
+      assert.equal(null, err);
+      if(items.length > 0){
+        for (i = 0; i < items.length; i++) {
+          reservations.push(items[i]);
+        }
+        res.json(reservations);
+      } else {
+        res.send("No reservations found for this roomId: " + req.headers._id);
+      }
+    });
+  } else {
+    res.send("There is no reservations");
+  }
 });
 
-*/
+
+// Get all reservations for room with date params
+userRouter.get("/reservation/rooms/:roomId", function(req, res){
+  var roomId = req.headers.room_id;
+  var timeStart = req.query.time_start;
+  var timeEnd = req.query.time_end;
+  var searchParams = {};
+
+  // Check if date values are set and not undefined
+  if(!timeStart || !timeEnd) {
+      if(timeStart){
+      // end is undefined
+      console.log("end undefined");
+      searchParams = {
+        room_id: roomId,
+        time_start: {$gte: timeStart}
+      }
+      Reservation.find(searchParams, function(err, result){
+        assert.equal(null, err);
+        res.json(result);
+        console.log("reservations: " + result);
+      });
+
+    } else if (timeEnd){
+      // start is undefined
+      console.log("start undefined");
+      searchParams = {
+        room_id: roomId,
+        time_end: {$lte: timeEnd}
+      }
+      Reservation.find(searchParams, function(err, result){
+        assert.equal(null, err);
+        res.json(result);
+        console.log("reservations: " + result);
+      });
+    } else {
+      // both dates are undefined, get all with roomId
+      console.log("both undefined");
+      searchParams = {
+        room_id: roomId
+      }
+      Reservation.find(searchParams, function(err, result){
+        assert.equal(null, err);
+        res.json(result);
+        console.log("reservations: " + result);
+      });
+    }
+  } else {
+    // dates are set
+    console.log("dates are set");
+    searchParams = {
+      room_id: roomId,
+      time_start: {$gte: timeStart},
+      time_end: {$lte: timeEnd}
+    }
+    Reservation.find(searchParams, function(err, result){
+      assert.equal(null, err);
+      res.json(result);
+      console.log("reservations: " + result);
+    });
+  }
+});
+
 module.exports = userRouter;
