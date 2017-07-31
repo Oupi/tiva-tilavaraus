@@ -10,7 +10,7 @@ app.factory('UserFactory', function($http) {
     return $http({
         method:"POST",
         url:"login",
-        data:{"userName":userName,"password":password},
+        data:{"email":userName,"password":password},
         headers:{"Content-Type":"application/json"}
     });
   };

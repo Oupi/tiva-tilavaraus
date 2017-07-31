@@ -6,6 +6,7 @@ var mongoose		= require("mongoose");
 var assert      = require("assert");
 var bodyParser  = require("body-parser");
 var path        = require("path");
+var bcrypt      = require("bcrypt");
 
 var config			= require("./backend/config");
 var userRouter  = require("./backend/userRouter");
@@ -13,7 +14,6 @@ var userRouter  = require("./backend/userRouter");
 var User        = require("./backend/models/user");
 var Room        = require("./backend/models/room");
 var Reservation = require("./backend/models/reservation");
-
 
 var app = express();
 
@@ -41,18 +41,47 @@ app.get("/", function(req, res) {
   res.sendFile(__dirname + "/views/index.html");
 });
 
+
+//TODO: Add token things
 // User login
 app.post("/login", function(req,res){
 
+  User.findOne({email:req.body.email}, function(err, user){
+		assert.equal(null,err);
+		if(user){
+      bcrypt.compare(req.body.password, user.password, function(err, response) {
+        assert.equal(null, err);
+        if(response){
+          if(user.role == 0){
+  					req.session.token = "admin";
+  					res.json({token:"admin", user:user.email});
+  					return;
+  				} else if(user.role == 1) {
+  					req.session.token = "user";
+  					res.json({token:"user", user:user.email});
+  					return;
+  				} else if(user.role == 2) {
+  					req.session.token = "contact";
+  					res.json({token:"contact", user:user.email});
+  					return;
+          }
+        } else {
+          res.status(403).send("Wrong password.");
+        }
+      });
+		}
+	});
 });
 
 // User logout
 app.post("/logout", function(req,res){
-
+  if(req.session){
+		req.session.destroy();
+	}
+	res.send("Logged out");
 });
 
 // User register
-// TODO:crypt, hash and salt password
 app.post("/register", function(req, res){
   var role = 1; // 0 = admin, 1 = user, 2 = contactPerson
   User.find().exec(function(err, items){
@@ -70,27 +99,28 @@ app.post("/register", function(req, res){
     var fullName    = req.body.lastName + " " + req.body.firstName;
     var email       = req.body.email;
     var phoneNumber = req.body.pnumber;
-    var password    = req.body.password; //TODO: crypt, hash and salt password
+    var password    = req.body.password;
 
-    User.find({"email":email}).exec(function(err, items){
-      var tempCount = items.length;
-      if(tempCount > 0){
-        res.status(403).send("Email address already in use");
-        return;
-      }
-      var newUser = new User({
-        name: fullName,
-        password: password,
-        email: email,
-        phonenumber: phoneNumber,
-        role: role
+    bcrypt.hash(password, config.saltRounds).then(function(hash){
+      User.find({"email":email}).exec(function(err, items){
+        var tempCount = items.length;
+        if(tempCount > 0){
+          res.status(403).send("Email address already in use");
+          return;
+        }
+        var newUser = new User({
+          name: fullName,
+          password: hash,
+          email: email,
+          phonenumber: phoneNumber,
+          role: role
+        });
+        console.log(newUser);
+        newUser.save(function(err){
+          assert.equal(null, err);
+          res.send("New user registered");
+        });
       });
-      console.log(newUser);
-      newUser.save(function(err){
-        assert.equal(null, err);
-
-      });
-      res.send("New user registered");
     });
   });
 });
