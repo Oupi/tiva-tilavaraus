@@ -15,7 +15,7 @@ app.controller('UserController', function($scope, UserFactory){
 			},function(reason) {
 				console.log(reason.data);
 			});
-	}
+	};
 
 	$scope.register = function(){
 		UserFactory.register($scope.firstName, $scope.lastName, $scope.email,
@@ -25,15 +25,15 @@ app.controller('UserController', function($scope, UserFactory){
 			},function(reason) {
 				console.log(reason.data);
 			});
-	}
+	};
 
 	$scope.editUser = function(){
 
-	}
+	};
 
 	$scope.deleteUser = function(userId){
 
-	}
+	};
 
 });
 
@@ -48,15 +48,15 @@ app.controller('ReservationController', function($scope, UserFactory, Reservatio
 			},function(reason) {
 				console.log(reason.data);
 			});
-	}
+	};
 
 	$scope.findReservationsByRoom = function(roomId){
 
-	}
+	};
 
 	$scope.findReservationsByUser = function(userId){
 
-	}
+	};
 
 	$scope.findReservationsByTime = function(){
 		ReservationFactory.findReservationsByTime($scope.startTime, $scope.endTime)
@@ -65,11 +65,11 @@ app.controller('ReservationController', function($scope, UserFactory, Reservatio
 			},function(reason) {
 				console.log(reason.data);
 			});
-	}
+	};
 
 	$scope.removeReservation = function(reservationId){
 
-	}
+	};
 
 });
 
@@ -78,14 +78,14 @@ app.controller('RoomController', function($scope, RoomFactory){
 
 	$scope.createRoom = function(){
 
-	}
+	};
 
 	$scope.editRoom = function(){
 
-	}
+	};
 
 	$scope.deleteRoom = function(){
 
-	}
+	};
 
 });
