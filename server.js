@@ -1,37 +1,40 @@
 var http        = require("http");
 var express     = require("express");
 var session     = require("express-session");
-var mongo       = require("mongodb").MongoClient;
+var mongoStore  = require("connect-mongo")(session);
+var mongoose		= require("mongoose");
 var assert      = require("assert");
 var bodyParser  = require("body-parser");
-var multer      = require("multer");
 var path        = require("path");
 
+var config			= require("./backend/config");
 var userRouter  = require("./backend/userRouter");
 
 var User        = require("./backend/models/user");
 var Room        = require("./backend/models/room");
 var Reservation = require("./backend/models/reservation");
 
-var url         = "mongodb://localhost:27017/tiva";
-
-mongo.connect(url, function(err, db) {
-  if (err) {
-    return console.dir(err);
-  }
-  db.close();
-});
 
 var app = express();
-var upload = multer(); // for parsing multipart/form-data
 
 app.use(session({
-  // Session config here
+  secret:config.secret,
+  saveUninitialized:false,
+	resave:true,
+	cookie:{maxAge:1000*60*60*24},
+	store:new mongoStore({
+		collection:"session",
+		url:config.sessionDB,
+		ttl:24*60*60
+	})
 }));
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
+
+mongoose.Promise = global.Promise;
+mongoose.connect(config.database, {useMongoClient:true});
 
 app.get("/", function(req, res) {
   console.log("GET req");
@@ -93,7 +96,7 @@ app.post("/register", function(req, res){
 });
 
 app.get("/get-reservation", function(req, res, next) {
-  mongo.connect(url, function(err, db) {
+  mongoose.connect(config.database, function(err, db) {
     assert.equal(null, err);
     console.log("Reservations required");
     var collection = db.collection("reservations");

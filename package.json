@@ -19,11 +19,11 @@
   "homepage": "https://github.com/Oupi/tiva-tilavaraus#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "connect-mongo": "^1.3.2",
     "express": "^4.15.3",
     "express-session": "^1.15.4",
     "mocha": "^3.4.2",
     "mongodb": "^2.2.30",
-    "mongoose": "^4.11.3",
-    "multer": "^1.3.0"
+    "mongoose": "^4.11.3"
   }
 }
