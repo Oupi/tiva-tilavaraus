@@ -1,9 +1,11 @@
 var express = require("express");
-var mongo = require("mongodb").MongoClient;
+// var mongo = require("mongodb").MongoClient;
+var mongoose = require("mongoose");
 var assert = require("assert");
 var bodyParser = require("body-parser");
-var multer = require("multer");
 var path = require("path");
+
+var Reservation = require("./models/reservation");
 
 var url = "mongodb://localhost:27017/tiva";
 var userRouter = express.Router();
@@ -21,126 +23,88 @@ userRouter.use(function(req, res, next) {
 
 // Make reservation
 userRouter.post("/reservation", function(req, res) {
-  var reservation = {
+  var newReservation = {
     room: req.body.room,
     time_start: req.body.time_start,
     time_end: req.body.time_end
   };
-  console.log(req.body);
-  mongo.connect(url, function(err, db) {
+
+  Reservation.insertOne(newReservation, function(err, result) {
     assert.equal(null, err);
-    db.collection("reservations").insertOne(reservation, function(err, result) {
-      assert.equal(null, err);
-      console.log("Reservation inserted");
-      db.close();
-    });
+    res.send("Reservation inserted");
   });
 });
 
 // Update reservation
 userRouter.put("/reservation/:reservationId", function(req, res, next) {
-  var reservation = req.body;
-  var reservationId = req.headers._id;
-  // Establish connection to db
-  mongo.connect(url, function(err, db) {
-    console.log("Connected");
+  var reservation = new Reservation(req.body);
+
+  Reservation.update({_id:reservation._id},{
+    $set:{
+      room:reservation.room,
+      time_start:reservation.time_start,
+      time_end:reservation.time_end
+    }
+  }, function(err, result){
     assert.equal(null, err);
-    db.collection("reservations").updateOne({_id: req.body.reservationId},{reservation}, function(err, result) {
-      assert.equal(null, err);
-
-      // Update reservation
-      collection.update({
-        _id: parseInt(reservationId)
-      },{
-        $set: {name: req.body.name}
-      }, function(err, result) {
-        assert.equal(null, err);
-
-        // Fetch the updated document
-        collection.findOne({_id: parseInt(reservationId)}, function(err, item){
-          assert.equal(null, err);
-          assert.equal(req.body.name, item.name);
-          db.close(function(){
-            console.log("Db closed");
-            return;
-          });
-        });
-      });
-    });
-    return;
+    res.send("Reservation updated");
   });
 });
 
 // Delete reservation
 userRouter.delete("/reservation/:reservationId", function(req, res) {
-  console.log(req.body);
-  mongo.connect(url, function(err, db) {
+  var reservation = new Reservation(req.body);
+
+  Reservation.findOneAndRemove({_id:reservation._id}, function(err, result){
     assert.equal(null, err);
-    db.collection("reservations").deleteOne({_id: req.body.reservationId}, function(err, result) {
-      assert.equal(null, err);
-      console.log("Reservation deleted");
-      db.close();
-    });
+    res.send("Reservation with id: " + reservation._id + " deleted");
   });
 });
 
+
 // Get all reservations for user
-userRouter.get("/reservation/:userId", function(req, res) {
+userRouter.get("/reservation/:id", function(req, res) {
   var reservations = [];
 
-  // Open database connection
-  mongo.connect(url, function(err, db) {
-    assert.equal(null, err);
-    // Find all reservations ffor userId
-    var cursor = db
-      .collection("userCollection")
-      .find({ userId: req.body.userId });
-    // If there are reservations, push them to reservations list
-    // If not, send message.
-    if (cursor.length > 0) {
-      cursor.forEach(function(reservation) {
+  if(req.query.id_type == "user"){
+
+  } else if(req.query.id_type == "room") {
+
+  } else {
+
+  }
+  Reservation.find({"user.user_id":req.headers.user_id}, function(err, items){
+    if (items.length > 0) {
+      items.forEach(function(reservation) {
         reservations.push(reservation);
       });
       // Return reservations list as json-object
       res.json(reservations);
     } else {
-      res.send("No reservations found for userId: " + req.body.userId);
+      res.send("No reservations found for userId: " + req.headers.user_id);
     }
-    // Close database connection
-    db.close();
   });
-
 });
 
-// Get all reservations for room
-userRouter.get("/reservation/room/:roomId", function(req, res) {
+
+// Get all reservations for room with id
+userRouter.get("/reservation/:roomId", function(req, res) {
   var reservations = [];
-  var reservationId = req.headers._id;
-  var roomId = req.headers.room_id;
 
-  // Open database connection
-  mongo.connect(url, function(err, db) {
-    console.log("Connected");
+  Reservation.find({room_id: req.query.room_id}, function(err, items){
     assert.equal(null, err);
-
-    var collection = db.collection("reservations");
-    var cursor = collection.find({room_id: roomId});
-
-    cursor.toArray(function(err, docs){
-      assert.equal(null, err);
-      if(docs.length > 0){
-        docs.forEach(function(doc){
-          reservations.push(doc);
-        });
-        res.json(reservations);
-      } else {
-        res.send("No records found");
+    if(items.length > 0){
+      for (var i = 0; i < items.length; i++) {
+        reservations.push(items[i]);
       }
-      db.close();
-    });
+      res.json(reservations);
+    } else {
+      res.send("No records found");
+    }
   });
 });
 
+/**
 // TODO: make this function work
 // Get all reservations for room with date params
 userRouter.get("/reservation/rooms/?room_id&time_start&time_end", function(req, res) {
@@ -210,4 +174,5 @@ userRouter.get("/reservation/rooms/?room_id&time_start&time_end", function(req, 
   });
 });
 
+*/
 module.exports = userRouter;
