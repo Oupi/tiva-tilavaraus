@@ -98,6 +98,14 @@ app.factory('RoomFactory', function($http) {
 
 	var factory = {};
 
+	factory.getRooms = function(){
+		return $http({
+			method:"GET",
+			url:"room",
+			headers:{"Content-Type":"application/json"}
+    });
+	};
+	
 	factory.createRoom = function(){
 
 	};

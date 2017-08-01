@@ -6,7 +6,8 @@
 			<form>
 			  <div class="form-group">
 			    <label for="sel1">Valitse varattava tila:</label>
-			    <select class="form-control" id="sel1" ng-model="selectedRoom">
+			    <select class="form-control" id="sel1" ng-model="selectedRoom"
+					ngOptions="room as room.name in roomList track by room.name">
 			      <option>Saunatila</option>
 			    </select>
 				</div>

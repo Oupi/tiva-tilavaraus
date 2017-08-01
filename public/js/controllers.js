@@ -38,8 +38,21 @@ app.controller('UserController', function($scope, UserFactory){
 });
 
 // ReservationController
-app.controller('ReservationController', function($scope, UserFactory, ReservationFactory){
+app.controller('ReservationController', function(
+	$scope, UserFactory, ReservationFactory, RoomFactory){
 
+	var roomList = [];
+	
+	// Get list of rooms for select dropdown
+	var init = function(){
+		RoomFactory.getRooms().then(function(data){
+			roomList = data.data;
+			console.log(roomList);
+		},function(reason){
+			console.log(reason.data);
+		});
+	};
+	
 	$scope.makeReservation = function(){
 		ReservationFactory.makeReservation(/*this needs roomId*/ $scope.selectedRoom,
 																			$scope.user, $scope.startTime, $scope.endTime)
@@ -71,6 +84,9 @@ app.controller('ReservationController', function($scope, UserFactory, Reservatio
 
 	};
 
+	// Uncomment once getRooms() is implemented
+	// init();
+	
 });
 
 // RoomController
