@@ -52,7 +52,12 @@ app.controller('UserController', function($scope, $location, UserFactory){
 app.controller('ReservationController', function(
 	$scope, UserFactory, ReservationFactory, RoomFactory){
 
-	var roomList = [];
+	$scope.roomList = [];
+	$scope.reservableTimes = [
+		{"time":"17:00", "reservee":"Varaaja 1"},
+		{"time":"18:30", "reservee":"Varaaja 2"},
+		{"time":"20:00", "reservee":"Varaaja 3"}
+	];
 
 	// Get list of rooms for select dropdown
 	var init = function(){
