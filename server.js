@@ -127,6 +127,23 @@ app.post("/register", function(req, res){
   });
 });
 
+app.get("/room", function(req, res){
+  if(req.query.room_id){
+    var room_id = req.query.room_id;
+    Room.find({_id:room_id}, function(err,result){
+      assert.equal(null,err);
+      res.json(result);
+      console.log("Result: " + result);
+    });
+  } else {
+    Room.find({}, function(err, result){
+      assert.equal(null, err);
+      res.json(result);
+      console.log("Result: " + result);
+    });
+  }
+});
+
 app.get("/get-reservation", function(req, res, next) {
   mongoose.connect(config.database, function(err, db) {
     assert.equal(null, err);

@@ -6,9 +6,9 @@
 			<form>
 			  <div class="form-group">
 			    <label for="sel1">Valitse varattava tila:</label>
-			    <select class="form-control" id="sel1" ng-model="selectedRoom"
-					ngOptions="room as room.name in roomList track by room.name">
-			      <option value="sauna">Saunatila</option>
+			    <select class="form-control" id="sel1" ng-model="selectedRoom" ng-init="initRooms()">
+			      <option ng-value="selectedRoom._id"
+						ng-repeat="room in roomList">{{room.name}}</option>
 			    </select>
 				</div>
 			</form>
@@ -23,7 +23,7 @@
 
 	<div class="col-sm-3">
 		<div class="well">
-			<h4>Päivämäärä</h4>
+			<label>Päivämäärä</label>
 			<input type="date" class="form-control" ng-model="currentDate" id="get-reservations-input"></input>
 			<br><br>
 			<button class="btn btn-info" ng-click="findReservationsByUser()">Hae varaukset</button>
@@ -32,7 +32,7 @@
 
 	<div class="col-sm-6">
 		<div class="well">
-			<h4>{{currentDate.toLocaleDateString()}}</h4>
+			<h4>Valittu päivä: {{currentDate.toLocaleDateString()}}</h4>
 			<table class="table table-striped">
     <thead>
       <tr>

@@ -2,7 +2,7 @@ var app = angular.module('Controllers', ['Factories']);
 
 // MainController, available in entire app
 app.controller('MainController', function($scope){
-
+	$scope.currentDate = new Date(Date.now());
 });
 
 // UserController
@@ -60,10 +60,9 @@ app.controller('ReservationController', function(
 	];
 
 	// Get list of rooms for select dropdown
-	var init = function(){
+	$scope.initRooms = function(){
 		RoomFactory.getRooms().then(function(data){
-			roomList = data.data;
-			console.log(roomList);
+			$scope.roomList = data.data;
 		},function(reason){
 			console.log(reason.data);
 		});
