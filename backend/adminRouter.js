@@ -30,11 +30,18 @@ adminRouter.get("/user", function(req, res){
 
 // Delete one user
 adminRouter.delete("/user/:id", function(req, res){
-  User.remove({"_id":req.body.user_id}, function(err){
-      assert.equal(null, err);
-      console.log("User with id "+ req.body.user_id + " has been removed");
-      res.send("User with id "+ req.body.user_id + " has been removed");
-  });
+  User.findById(req.body.user_id, function(err, result){
+    assert.equal(null, err);
+    if(result._id == req.headers.id){
+      res.send("Cannot delete yourself you silly admin");
+    } else {
+      User.remove({"_id":req.body.user_id}, function(err){
+          assert.equal(null, err);
+          console.log("User with id "+ req.body.user_id + " has been removed");
+          res.send("User with id "+ req.body.user_id + " has been removed");
+      });
+    }
+  });  
 });
 
 module.exports = adminRouter;
