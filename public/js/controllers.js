@@ -127,11 +127,11 @@ app.controller('UiController', function($scope, $location, UserFactory) {
   }
 
   $scope.logOut = function() {
-    //UserFactory.logOut(UserFactory.getUser()).then(function(data) {
+    UserFactory.logOut().then(function(data) {
 			UserFactory.setLogged(false);
       $location.url("/login");
-    //}, function(reason) {
-      //console.log(reason.data);
-    //});
+    }, function(reason) {
+      console.log(reason.data);
+    });
   }
 });

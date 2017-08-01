@@ -30,6 +30,14 @@ app.factory('UserFactory', function($http) {
         headers:{"Content-Type":"application/json"}
     });
   };
+	
+	factory.logOut = function(){
+    return $http({
+      method:"POST",
+      url:"logout",
+      headers:{"Content-Type":"application/json"}
+    });
+  };
 
 	factory.editUser = function() {
 
