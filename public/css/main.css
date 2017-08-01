@@ -51,3 +51,7 @@ html, body {
 .align-right {
 	float: right;
 }
+
+.err-message {
+	color: red;
+}

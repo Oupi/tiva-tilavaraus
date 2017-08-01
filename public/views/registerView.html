@@ -1,32 +1,52 @@
 <div class="row">
 	<div class="col-sm-6">
-		<form>
+
+		<!--Element for displaying success or failure message from server after submitting the form.-->
+		<p id="reg-user-info"></p>
+
+		<form name=regForm>
 			<h3 class="page-header">Luo käyttäjätili</h3>
 			<p>Luo käyttäjätili varataksesi tiloja ja katsoaksesi varauksiasi.
-				Jos olet jo aikaisemmin luonut käyttäjätilin,<a href="#/login"> kirjaudu sisään</a>
+				Jos olet jo aikaisemmin luonut käyttäjätilin,<a href="#/login"> kirjaudu sisään</a>.
 			</p>
 			<div class="form-group">
-				<label for="first-name">Etunimi</label>
-				<input type="text" class="form-control" name="first-name" ng-model="firstName"
+				<label for="firstName">Etunimi</label>
+				<input type="text" class="form-control" name="firstName" ng-model="firstName"
 				required autofocus>
+				<span class="err-message" ng-show="regForm.firstName.$dirty && regForm.firstName.$invalid">
+  			<span ng-show="regForm.firstName.$error.required">Etunimi vaaditaan.</span>
+  			</span>
 			</div>
 			<div class="form-group">
-				<label for="last-name">Sukunimi</label>
-				<input type="text" class="form-control" name="last-name" ng-model="lastName" required>
+				<label for="lastName">Sukunimi</label>
+				<input type="text" class="form-control" name="lastName" ng-model="lastName" required>
+				<span class="err-message" ng-show="regForm.lastName.$dirty && regForm.lastName.$invalid">
+  			<span ng-show="regForm.lastName.$error.required">Sukunimi vaaditaan.</span>
+  			</span>
 			</div>
 			<div class="form-group">
-				<label for="mail">Sähköpostiosoite</label>
-				<input type="email" class="form-control" name="mail" ng-model="email" required>
+				<label for="email">Sähköpostiosoite</label>
+				<input type="email" class="form-control" name="email" ng-model="email" required>
+				<span class="err-message" ng-show="regForm.email.$dirty && regForm.email.$invalid">
+  			<span ng-show="regForm.email.$error.required">Sähköpostiosoite vaaditaan.</span>
+  			<span ng-show="regForm.email.$error.email">Anna kelvollinen sähköpostiosoite.</span>
 			</div>
 			<div class="form-group">
 				<label for="pnumber">Puhelinnumero</label>
 				<input type="text" class="form-control" name="pnumber" ng-model="pnumber">
 			</div>
 			<div class="form-group">
-				<label for="pword">Salasana</label>
-				<input type="password" class="form-control" name="pword" ng-model="password" required>
+				<label for="password">Salasana</label>
+				<input type="password" class="form-control" name="password" ng-model="password" required>
+				<span class="err-message" ng-show="regForm.password.$dirty && regForm.password.$invalid">
+  			<span ng-show="regForm.password.$error.required">Salasana vaaditaan.</span>
 			</div>
-		  <button class="btn btn-info" ng-click="register()">Rekisteröidy</button>
+			<!-- Button will be disabled if all the form fields are not valid. -->
+		  <button class="btn btn-info" ng-click="register()"
+			ng-disabled="regForm.firstName.$dirty && regForm.firstName.$invalid
+			|| regForm.lastName.$dirty && regForm.lastName.$invalid
+			|| regForm.email.$dirty && regForm.email.$invalid
+			|| regForm.password.$dirty && regForm.password.$invalid">Rekisteröidy</button>
 		</form>
 	</div>
 	<div class="col-sm-6"></div>

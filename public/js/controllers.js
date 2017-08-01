@@ -6,7 +6,7 @@ app.controller('MainController', function($scope){
 });
 
 // UserController
-app.controller('UserController', function($scope, UserFactory){
+app.controller('UserController', function($scope, $location, UserFactory){
 
 	$scope.login = function(){
 		UserFactory.login($scope.userName, $scope.password)
@@ -18,12 +18,19 @@ app.controller('UserController', function($scope, UserFactory){
 	};
 
 	$scope.register = function(){
+		$("#reg-user-info").removeClass("alert alert-success alert-danger");
 		UserFactory.register($scope.firstName, $scope.lastName, $scope.email,
 													$scope.pnumber, $scope.password)
 			.then(function(data) {
 				console.log(data.data);
+				// If registering is successful, show this message to user.
+				$("#reg-user-info").text("Käyttäjätunnus luotu onnistuneesti.");
+				$("#reg-user-info").addClass("alert alert-success");
 			},function(reason) {
 				console.log(reason.data);
+				// If registering fails, show this message to user.
+				$("#reg-user-info").text("Sähköpostiosoite on jo käytössä.");
+				$("#reg-user-info").addClass("alert alert-danger");
 			});
 	};
 
