@@ -182,12 +182,23 @@ userRouter.get("/room", function(req, res){
 });
 
 // Get user information by given id
-userRouter.get("/user/:id", function(req, res){
+userRouter.get("/user/:userId", function(req, res){
   var userId = req.headers._id;
 
   User.findById(userId, function(err, user){
     assert.equal(null, err);
     res.json(user);
+  });
+});
+
+// Update user information
+userRouter.put("/user/:userId", function(req, res, next) {
+  var updatedInformation = req.body;
+  var tempId = req.headers._id;
+
+  User.update({_id:tempId},{$set:updatedInformation}, function(err, result){
+    assert.equal(null, err);
+    res.send("Users information updated");
   });
 });
 
