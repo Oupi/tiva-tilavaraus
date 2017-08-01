@@ -34,7 +34,7 @@ userRouter.post("/reservation", function(req, res) {
 });
 
 // Update reservation
-userRouter.put("/reservation/:reservationId", function(req, res, next) {
+userRouter.put("/reservation/:reservationId", function(req, res) {
   var newReservation = req.body;
   var tempId = req.headers._id;
 
@@ -192,7 +192,7 @@ userRouter.get("/user/:userId", function(req, res){
 });
 
 // Update user information
-userRouter.put("/user/:userId", function(req, res, next) {
+userRouter.put("/user/:userId", function(req, res) {
   var updatedInformation = req.body;
   var tempId = req.headers._id;
 
@@ -200,6 +200,16 @@ userRouter.put("/user/:userId", function(req, res, next) {
     assert.equal(null, err);
     res.send("Users information updated");
   });
+});
+
+// Delete user by id
+userRouter.delete("/user/:userId", function(req, res ){
+  var tempId = req.headers._id;
+
+  User.findByIdAndRemove(tempId, function(err, result){
+    assert.equal(null, err);
+    res.send("User with id: " + tempId + " deleted");
+  })
 });
 
 module.exports = userRouter;
