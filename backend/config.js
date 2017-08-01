@@ -7,7 +7,7 @@ var sessionDBPword = "nnaMFtAPTkvpWhYwbTnCTrDSCpahNS";
 ** example production or development/testing
 */
 module.exports = {
-  "database": "mongodb://localhost/tiva-test",
+  "database": "mongodb://localhost/tiva",
   "databaseCloud": "mongodb://" + databaseUser + ":" + databasePword + "@ds129733.mlab.com:29733/tiva",
   "testDB":"mongodb://localhost/tiva-test",
   "sessionDB":"mongodb://localhost/tiva-session",

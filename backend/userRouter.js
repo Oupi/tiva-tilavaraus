@@ -6,6 +6,7 @@ var path = require("path");
 
 var Reservation = require("./models/reservation");
 var Room = require("./models/room");
+var User = require("./models/user");
 
 var config = require("./config");
 var url = config.database;
@@ -178,6 +179,16 @@ userRouter.get("/room", function(req, res){
       console.log("Result: " + result);
     });
   }
+});
+
+// Get user information by given id
+userRouter.get("/user/:id", function(req, res){
+  var userId = req.headers._id;
+
+  User.findById(userId, function(err, user){
+    assert.equal(null, err);
+    res.json(user);
+  });
 });
 
 module.exports = userRouter;
