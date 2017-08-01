@@ -13,6 +13,7 @@ app.controller('UserController', function($scope, $location, UserFactory){
 			.then(function(data) {
 				console.log(data.data);
 
+				UserFactory.setUser(data.data.user);
 				UserFactory.setLogged(true);
 
         $location.url("/reservation");
@@ -58,19 +59,20 @@ app.controller('ReservationController', function(
 		{"time":"18:30", "reservee":"Varaaja 2"},
 		{"time":"20:00", "reservee":"Varaaja 3"}
 	];
-
+	
 	// Get list of rooms for select dropdown
 	$scope.initRooms = function(){
 		RoomFactory.getRooms().then(function(data){
 			$scope.roomList = data.data;
+			$scope.selectedRoom = $scope.roomList[0];
 		},function(reason){
 			console.log(reason.data);
 		});
 	};
 
 	$scope.makeReservation = function(){
-		ReservationFactory.makeReservation(/*this needs roomId*/ $scope.selectedRoom,
-																			$scope.user, $scope.startTime, $scope.endTime)
+		ReservationFactory.makeReservation($scope.selectedRoom._id, $scope.selectedRoom.name,
+																			UserFactory.getUser(), $scope.startTime, $scope.endTime)
 			.then(function(data) {
 				console.log(data.data);
 			},function(reason) {

@@ -6,9 +6,8 @@
 			<form>
 			  <div class="form-group">
 			    <label for="sel1">Valitse varattava tila:</label>
-			    <select class="form-control" id="sel1" ng-model="selectedRoom" ng-init="initRooms()">
-			      <option ng-value="selectedRoom._id"
-						ng-repeat="room in roomList">{{room.name}}</option>
+			    <select class="form-control" id="sel1" ng-model="selectedRoom" ng-init="initRooms()"
+					ng-options="room as room.name for room in roomList track by room.name">
 			    </select>
 				</div>
 			</form>
