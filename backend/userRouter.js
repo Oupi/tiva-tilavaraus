@@ -69,7 +69,7 @@ userRouter.get("/reservation/:id", function(req, res) {
       if (items.length > 0) {
         for(i = 0; i < items.length; i++) {
           reservations.push(items[i]);
-        };
+        }
         // Return reservations list as json-object
         res.json(reservations);
       } else {
@@ -112,7 +112,7 @@ userRouter.get("/reservation/rooms/:roomId", function(req, res){
       searchParams = {
         room_id: roomId,
         time_start: {$gte: timeStart}
-      }
+      };
       Reservation.find(searchParams, function(err, result){
         assert.equal(null, err);
         res.json(result);
@@ -125,7 +125,7 @@ userRouter.get("/reservation/rooms/:roomId", function(req, res){
       searchParams = {
         room_id: roomId,
         time_end: {$lte: timeEnd}
-      }
+      };
       Reservation.find(searchParams, function(err, result){
         assert.equal(null, err);
         res.json(result);
@@ -136,7 +136,7 @@ userRouter.get("/reservation/rooms/:roomId", function(req, res){
       console.log("both undefined");
       searchParams = {
         room_id: roomId
-      }
+      };
       Reservation.find(searchParams, function(err, result){
         assert.equal(null, err);
         res.json(result);
@@ -150,7 +150,7 @@ userRouter.get("/reservation/rooms/:roomId", function(req, res){
       room_id: roomId,
       time_start: {$gte: timeStart},
       time_end: {$lte: timeEnd}
-    }
+    };
     Reservation.find(searchParams, function(err, result){
       assert.equal(null, err);
       res.json(result);
