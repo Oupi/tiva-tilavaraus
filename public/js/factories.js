@@ -5,6 +5,7 @@ app.factory('UserFactory', function($http) {
 
 	var factory = {};
 	var user = {};
+	var logged = false;
 
 	factory.login = function(userName, password) {
     return $http({
@@ -44,6 +45,14 @@ app.factory('UserFactory', function($http) {
 	factory.setUser = function(u) {
 		user = u;
 	};
+
+	factory.setLogged = function(u) {
+    logged = u;
+  }
+
+  factory.isLogged = function() {
+    return logged;
+  }
 
 	return factory;
 
@@ -105,7 +114,7 @@ app.factory('RoomFactory', function($http) {
 			headers:{"Content-Type":"application/json"}
     });
 	};
-	
+
 	factory.createRoom = function(){
 
 	};

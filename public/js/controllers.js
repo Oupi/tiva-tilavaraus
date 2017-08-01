@@ -12,6 +12,10 @@ app.controller('UserController', function($scope, $location, UserFactory){
 		UserFactory.login($scope.userName, $scope.password)
 			.then(function(data) {
 				console.log(data.data);
+
+				UserFactory.setLogged(true);
+
+        $location.url("/reservation");
 			},function(reason) {
 				console.log(reason.data);
 			});
@@ -49,7 +53,7 @@ app.controller('ReservationController', function(
 	$scope, UserFactory, ReservationFactory, RoomFactory){
 
 	var roomList = [];
-	
+
 	// Get list of rooms for select dropdown
 	var init = function(){
 		RoomFactory.getRooms().then(function(data){
@@ -59,7 +63,7 @@ app.controller('ReservationController', function(
 			console.log(reason.data);
 		});
 	};
-	
+
 	$scope.makeReservation = function(){
 		ReservationFactory.makeReservation(/*this needs roomId*/ $scope.selectedRoom,
 																			$scope.user, $scope.startTime, $scope.endTime)
@@ -93,7 +97,7 @@ app.controller('ReservationController', function(
 
 	// Uncomment once getRooms() is implemented
 	// init();
-	
+
 });
 
 // RoomController
@@ -111,4 +115,19 @@ app.controller('RoomController', function($scope, RoomFactory){
 
 	};
 
+});
+
+app.controller('UiController', function($scope, $location, UserFactory) {
+  $scope.isLogged = function() {
+    return UserFactory.isLogged();
+  }
+
+  $scope.logOut = function() {
+    //UserFactory.logOut(UserFactory.getUser()).then(function(data) {
+			UserFactory.setLogged(false);
+      $location.url("/login");
+    //}, function(reason) {
+      //console.log(reason.data);
+    //});
+  }
 });
