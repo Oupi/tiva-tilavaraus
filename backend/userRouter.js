@@ -14,7 +14,7 @@ var userRouter = express.Router();
 userRouter.use(function(req, res, next) {
   var token = req.headers.token;
   if (token == "user") {
-    console.log("Authorized access");
+    console.log("Authorized access: User");
     // console.log(req.headers);
     next();
   } else {

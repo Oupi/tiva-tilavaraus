@@ -10,6 +10,8 @@ var bcrypt      = require("bcrypt");
 
 var config			= require("./backend/config");
 var userRouter  = require("./backend/userRouter");
+var ownerRouter = require("./backend/ownerRouter");
+var adminRouter = require("./backend/adminRouter");
 
 var User        = require("./backend/models/user");
 var Room        = require("./backend/models/room");
@@ -83,7 +85,7 @@ app.post("/logout", function(req,res){
 
 // User register
 app.post("/register", function(req, res){
-  var role = 1; // 0 = admin, 1 = user, 2 = contactPerson
+  var role = 1; // 0 = admin, 1 = user, 2 = owner
   User.find().exec(function(err, items){
     assert.equal(null,err);
     var count = items.length;
@@ -140,6 +142,8 @@ app.get("/get-reservation", function(req, res, next) {
 });
 
 app.use("/api", userRouter);
+app.use("/api/owner", ownerRouter);
+app.use("/api/admin", adminRouter);
 
 app.listen(8080, function() {
   console.log("Listening port 8080...");
