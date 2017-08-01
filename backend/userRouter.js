@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 var path = require("path");
 
 var Reservation = require("./models/reservation");
+var Room = require("./models/room");
 
 var config = require("./config");
 var url = config.database;
@@ -155,6 +156,26 @@ userRouter.get("/reservation/rooms/:roomId", function(req, res){
       assert.equal(null, err);
       res.json(result);
       console.log("reservations: " + result);
+    });
+  }
+});
+
+// Get rooms. Accepts parameter "room_id" and if used,
+// will return one room with the given id number.
+// Otherwise returns all rooms from db.
+userRouter.get("/room", function(req, res){
+  if(req.query.room_id){
+    var room_id = req.query.room_id;
+    Room.find({_id:room_id}, function(err,result){
+      assert.equal(null,err);
+      res.json(result);
+      console.log("Result: " + result);
+    });
+  } else {
+    Room.find({}, function(err, result){
+      assert.equal(null, err);
+      res.json(result);
+      console.log("Result: " + result);
     });
   }
 });
