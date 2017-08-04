@@ -1,3 +1,6 @@
+//============
+// Packages ==
+//============
 var http        = require("http");
 var express     = require("express");
 var session     = require("express-session");
@@ -7,12 +10,19 @@ var assert      = require("assert");
 var bodyParser  = require("body-parser");
 var path        = require("path");
 var bcrypt      = require("bcrypt");
+var jwt         = require("jsonwebtoken");
 
+//=================
+// Configuration ==
+//=================
 var config			= require("./backend/config");
 var userRouter  = require("./backend/userRouter");
 var ownerRouter = require("./backend/ownerRouter");
 var adminRouter = require("./backend/adminRouter");
 
+//==========
+// Models ==
+//==========
 var User        = require("./backend/models/user");
 var Room        = require("./backend/models/room");
 var Reservation = require("./backend/models/reservation");
@@ -48,24 +58,63 @@ app.get("/", function(req, res) {
 // User login
 app.post("/login", function(req,res){
 
+  // find the user
   User.findOne({email:req.body.email}, function(err, user){
 		assert.equal(null,err);
-		if(user){
+
+    if(user){
+      // check if password matches
       bcrypt.compare(req.body.password, user.password, function(err, response) {
         assert.equal(null, err);
+
+        // if user is found
         if(response){
+          // check for user's role
           if(user.role == 0){
-  					req.session.token = "admin";
-  					res.json({token:"admin", user:user.email, id:user._id});
-  					return;
+
+            // if user's role is admin
+            jwt.sign(user, config.secret, {
+              expiresIn: 60*60*24, // expires in 24 hours
+            }, function(err, token){
+              assert.equal(null, err);
+              console.log(token);
+              res.json({
+                success: true,
+                message: "Here's your token!",
+                token: token,
+              });
+              req.session.token = token;
+            });
   				} else if(user.role == 1) {
-  					req.session.token = "user";
-  					res.json({token:"user", user:user.email, id:user._id});
-  					return;
+
+            // if user's role is just regular user
+            jwt.sign(user, config.secret, {
+              expiresIn: 60*60*24 // expires in 24 hours
+            },  function(err, token){
+              assert.equal(null, err);
+              console.log(token);
+              res.json({
+                success: true,
+                message: "Here's your token!",
+                token: token,
+              });
+              req.session.token = token;
+            });
   				} else if(user.role == 2) {
-  					req.session.token = "contact";
-  					res.json({token:"contact", user:user.email, id:user._id});
-  					return;
+
+            // if user's role is owner
+            jwt.sign(user, config.secret, {
+              expiresIn: 60*60*24 // expires in 24 hours
+            },  function(err, token){
+              assert.equal(null, err);
+              console.log(token);
+              res.json({
+                success: true,
+                message: "Here's your token!",
+                token: token,
+              });
+              req.session.token = token;
+            });
           }
         } else {
           res.status(403).send("Wrong password.");
