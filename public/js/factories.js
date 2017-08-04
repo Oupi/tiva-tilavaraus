@@ -31,7 +31,7 @@ app.factory('UserFactory', function($http) {
         headers:{"Content-Type":"application/json"}
     });
   };
-	
+
 	factory.logOut = function(){
     return $http({
       method:"POST",
@@ -51,7 +51,7 @@ app.factory('UserFactory', function($http) {
 			}
     });
 	};
-	
+
 	factory.editUser = function() {
 
 	};
@@ -62,7 +62,7 @@ app.factory('UserFactory', function($http) {
 	factory.setUserId = function(id) {
 		userId = id;
 	};
-	
+
 	factory.getUserId = function() {
 		return userId;
 	};
@@ -74,14 +74,6 @@ app.factory('UserFactory', function($http) {
   factory.isLogged = function() {
     return logged;
   };
-	
-	factory.setToken = function(t) {
-		token = t;
-	};
-	
-	factory.getToken = function() {
-		return token;
-	};
 
 	factory.setToken = function(t){
 		token = t;

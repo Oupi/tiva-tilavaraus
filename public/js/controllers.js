@@ -3,10 +3,10 @@ var app = angular.module('Controllers', ['Factories']);
 // MainController, available in entire app
 app.controller('MainController', function($scope, UserFactory){
 	$scope.currentDate = new Date(Date.now());
-	
+
 	$scope.isLogged = function() {
     return UserFactory.isLogged();
-  }
+  };
 
   $scope.logOut = function() {
     UserFactory.logOut().then(function(data) {
@@ -15,7 +15,7 @@ app.controller('MainController', function($scope, UserFactory){
     }, function(reason) {
       console.log(reason.data);
     });
-  }
+  };
 });
 
 // UserController
@@ -25,15 +25,8 @@ app.controller('UserController', function($scope, $location, UserFactory){
 		UserFactory.login($scope.userName, $scope.password)
 			.then(function(data) {
 				console.log(data.data);
-				var token = data.data.token;
-				UserFactory.setToken(token);
-				var user = data.data.user;
-				UserFactory.setUser(user);
-
-				UserFactory.setUserId(data.data.id);
 				UserFactory.setToken(data.data.token);
 				UserFactory.setLogged(true);
-
         $location.url("/reservation");
 			},function(reason) {
 				console.log(reason.data);
@@ -80,7 +73,7 @@ app.controller('ReservationController', function(
 		{"time":"20:00", "reservee":"Varaaja 3"}
 	];
 	*/
-	
+
 	// Get list of rooms for select dropdown
 	$scope.initRooms = function(){
 		RoomFactory.getRooms().then(function(data){
@@ -100,7 +93,7 @@ app.controller('ReservationController', function(
 					email:data.data.email,
 					phonenumber:data.data.phonenumber
 				};
-				
+
 				ReservationFactory.makeReservation($scope.selectedRoom._id, $scope.selectedRoom.name,
 																					userInfo, $scope.startTime, $scope.endTime)
 					.then(function(data) {
@@ -109,7 +102,7 @@ app.controller('ReservationController', function(
 					},function(reason) {
 						console.log(reason.data);
 					});
-				
+
 			},function(reason) {
 				console.log(reason.data);
 			});
