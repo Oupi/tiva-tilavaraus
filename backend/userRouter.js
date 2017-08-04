@@ -14,8 +14,8 @@ var userRouter = express.Router();
 
 userRouter.use(function(req, res, next) {
   var token = req.headers.token;
-  if (token == "user") {
-    console.log("Authorized access: User");
+  if (token == "user" || token == "admin") {
+    console.log("Authorized access");
     // console.log(req.headers);
     next();
   } else {
@@ -82,7 +82,7 @@ userRouter.get("/reservation/:id", function(req, res) {
   // Checking id_type for room and then returning array of reservations if there
   // is reservations
    else if(req.query.id_type == "room") {
-    Reservation.find({room_id: req.query._id}, function(err, items){
+    Reservation.find({room_id: req.headers._id}, function(err, items){
       assert.equal(null, err);
       if(items.length > 0){
         for (i = 0; i < items.length; i++) {

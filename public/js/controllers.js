@@ -1,8 +1,21 @@
 var app = angular.module('Controllers', ['Factories']);
 
 // MainController, available in entire app
-app.controller('MainController', function($scope){
+app.controller('MainController', function($scope, UserFactory){
 	$scope.currentDate = new Date(Date.now());
+	
+	$scope.isLogged = function() {
+    return UserFactory.isLogged();
+  }
+
+  $scope.logOut = function() {
+    UserFactory.logOut().then(function(data) {
+			UserFactory.setLogged(false);
+      $location.url("/login");
+    }, function(reason) {
+      console.log(reason.data);
+    });
+  }
 });
 
 // UserController
@@ -11,9 +24,10 @@ app.controller('UserController', function($scope, $location, UserFactory){
 	$scope.login = function(){
 		UserFactory.login($scope.userName, $scope.password)
 			.then(function(data) {
-				console.log(data.data);
+				//console.log(data.data);
 
-				UserFactory.setUser(data.data.user);
+				UserFactory.setUserId(data.data.id);
+				UserFactory.setToken(data.data.token);
 				UserFactory.setLogged(true);
 
         $location.url("/reservation");
@@ -54,11 +68,14 @@ app.controller('ReservationController', function(
 	$scope, UserFactory, ReservationFactory, RoomFactory){
 
 	$scope.roomList = [];
+	$scope.reservationList = [];
+	/*
 	$scope.reservableTimes = [
 		{"time":"17:00", "reservee":"Varaaja 1"},
 		{"time":"18:30", "reservee":"Varaaja 2"},
 		{"time":"20:00", "reservee":"Varaaja 3"}
 	];
+	*/
 	
 	// Get list of rooms for select dropdown
 	$scope.initRooms = function(){
@@ -71,27 +88,56 @@ app.controller('ReservationController', function(
 	};
 
 	$scope.makeReservation = function(){
-		ReservationFactory.makeReservation($scope.selectedRoom._id, $scope.selectedRoom.name,
-																			UserFactory.getUser(), $scope.startTime, $scope.endTime)
-			.then(function(data) {
-				console.log(data.data);
+		UserFactory.getUserById(UserFactory.getUserId()).then(
+			function(data) {
+				var userInfo = {
+					user_id:data.data._id,
+					name:data.data.name,
+					email:data.data.email,
+					phonenumber:data.data.phonenumber
+				};
+				
+				ReservationFactory.makeReservation($scope.selectedRoom._id, $scope.selectedRoom.name,
+																					userInfo, $scope.startTime, $scope.endTime)
+					.then(function(data) {
+						//console.log("Reservation made");
+						//console.log(data.data);
+					},function(reason) {
+						console.log(reason.data);
+					});
+				
 			},function(reason) {
 				console.log(reason.data);
 			});
 	};
 
 	$scope.findReservationsByRoom = function(roomId){
-
+		ReservationFactory.findReservationsByRoom($scope.selectedRoom._id)
+			.then(function(data) {
+				//console.log(data.data);
+				var list = data.data;
+				for(var i = 0; i < list.length; i++) {
+					list[i].time_start = new Date(list[i].time_start).getHours() + ":" +
+																new Date(list[i].time_start).getFullMinutes();
+					list[i].time_end = new Date(list[i].time_end).getHours() + ":" +
+																new Date(list[i].time_end).getFullMinutes();
+				}
+				$scope.reservationList = list;
+			},function(reason) {
+				console.log(reason.data);
+			});
 	};
 
 	$scope.findReservationsByUser = function(userId){
 
 	};
 
-	$scope.findReservationsByTime = function(){
-		ReservationFactory.findReservationsByTime($scope.startTime, $scope.endTime)
+	$scope.findReservationsByRoomAndTime = function(){
+		ReservationFactory.findReservationsByRoomAndTime(
+					$scope.selectedRoom._id, $scope.currentDate, $scope.currentDate)
 			.then(function(data) {
 				console.log(data.data);
+				reservationList = data.data;
 			},function(reason) {
 				console.log(reason.data);
 			});
@@ -121,19 +167,4 @@ app.controller('RoomController', function($scope, RoomFactory){
 
 	};
 
-});
-
-app.controller('UiController', function($scope, $location, UserFactory) {
-  $scope.isLogged = function() {
-    return UserFactory.isLogged();
-  }
-
-  $scope.logOut = function() {
-    UserFactory.logOut().then(function(data) {
-			UserFactory.setLogged(false);
-      $location.url("/login");
-    }, function(reason) {
-      console.log(reason.data);
-    });
-  }
 });

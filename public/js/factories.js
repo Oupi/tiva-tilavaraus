@@ -4,8 +4,9 @@ var app = angular.module('Factories', []);
 app.factory('UserFactory', function($http) {
 
 	var factory = {};
-	var user = {};
+	var userId = "";
 	var logged = false;
+	var token = "";
 
 	factory.login = function(userName, password) {
     return $http({
@@ -39,6 +40,18 @@ app.factory('UserFactory', function($http) {
     });
   };
 
+	factory.getUserById = function(id) {
+		return $http({
+      method:"GET",
+      url:"api/user/:id",
+      headers:{
+				"Content-Type":"application/json",
+				"_id": id,
+				"token": factory.getToken()
+			}
+    });
+	};
+	
 	factory.editUser = function() {
 
 	};
@@ -46,12 +59,12 @@ app.factory('UserFactory', function($http) {
 	factory.deleteUser = function() {
 	};
 
-	factory.getUser = function() {
-		return user;
+	factory.setUserId = function(id) {
+		userId = id;
 	};
-
-	factory.setUser = function(u) {
-		user = u;
+	
+	factory.getUserId = function() {
+		return userId;
 	};
 
 	factory.setLogged = function(u) {
@@ -61,6 +74,14 @@ app.factory('UserFactory', function($http) {
   factory.isLogged = function() {
     return logged;
   }
+	
+	factory.setToken = function(t) {
+		token = t;
+	};
+	
+	factory.getToken = function() {
+		return token;
+	};
 
 	return factory;
 
@@ -74,7 +95,7 @@ app.factory('ReservationFactory', function($http, UserFactory) {
 	factory.makeReservation = function(roomId, roomName, user, startTime, endTime){
 		return $http({
 			method:"POST",
-			url:"reservation",
+			url:"api/reservation",
 			data:{
 				"room_id":roomId,
 				"room":roomName,
@@ -83,22 +104,37 @@ app.factory('ReservationFactory', function($http, UserFactory) {
 				"time_end":endTime,
 				"time_cancel":null
 			},
-			headers:{"Content-Type":"application/json"}
+			headers:{
+				"Content-Type":"application/json",
+				"token": UserFactory.getToken()
+			}
     });
 	};
 	factory.findReservationsByRoom = function(roomId){
-
+		return $http({
+			method:"GET",
+			url:"api//reservation/:id?id_type=room",
+			headers:{
+				"Content-Type":"application/json",
+				"token": UserFactory.getToken(),
+				"_id": roomId
+			}
+    });
 	};
 
 	factory.findReservationsByUser = function(userId){
 
 	};
 
-	factory.findReservationsByTime = function(startTime, endTime){
+	factory.findReservationsByRoomAndTime = function(roomId, startTime, endTime){
 		return $http({
 			method:"GET",
-			url:"reservation?time_start=" + startTime + "&time_end=" + endTime,
-			headers:{"Content-Type":"application/json"}
+			url:"api/reservation/rooms/:roomId?time_start=" + startTime + "&time_end=" + endTime,
+			headers:{
+				"Content-Type":"application/json",
+				"token": UserFactory.getToken(),
+				"room_id": roomId
+			}
     });
 	};
 

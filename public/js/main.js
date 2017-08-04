@@ -1,11 +1,19 @@
 var app = angular.module('tivaApp', ['Routes', 'Controllers']);
 
-//Localizes Date().toDateInputValue() timezone
+// Localizes Date().toDateInputValue() timezone
 Date.prototype.toDateInputValue = (function() {
     var local = new Date(this);
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
     return local.toJSON().slice(0,10);
 });
+
+// Version of Date getMinutes() that always return with two digits
+Date.prototype.getFullMinutes = function () {
+   if (this.getMinutes() < 10) {
+       return '0' + this.getMinutes();
+   }
+   return this.getMinutes();
+};
 
 $(document).ready(function(){
 	$("#datepicker").datepicker();

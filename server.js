@@ -56,15 +56,15 @@ app.post("/login", function(req,res){
         if(response){
           if(user.role == 0){
   					req.session.token = "admin";
-  					res.json({token:"admin", user:user.email});
+  					res.json({token:"admin", user:user.email, id:user._id});
   					return;
   				} else if(user.role == 1) {
   					req.session.token = "user";
-  					res.json({token:"user", user:user.email});
+  					res.json({token:"user", user:user.email, id:user._id});
   					return;
   				} else if(user.role == 2) {
   					req.session.token = "contact";
-  					res.json({token:"contact", user:user.email});
+  					res.json({token:"contact", user:user.email, id:user._id});
   					return;
           }
         } else {
@@ -133,13 +133,13 @@ app.get("/room", function(req, res){
     Room.find({_id:room_id}, function(err,result){
       assert.equal(null,err);
       res.json(result);
-      console.log("Result: " + result);
+      //console.log("Result: " + result);
     });
   } else {
     Room.find({}, function(err, result){
       assert.equal(null, err);
       res.json(result);
-      console.log("Result: " + result);
+      //console.log("Result: " + result);
     });
   }
 });
