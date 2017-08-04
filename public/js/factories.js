@@ -69,17 +69,25 @@ app.factory('UserFactory', function($http) {
 
 	factory.setLogged = function(u) {
     logged = u;
-  }
+  };
 
   factory.isLogged = function() {
     return logged;
-  }
+  };
 	
 	factory.setToken = function(t) {
 		token = t;
 	};
 	
 	factory.getToken = function() {
+		return token;
+	};
+
+	factory.setToken = function(t){
+		token = t;
+	};
+
+	factory.getToken = function(){
 		return token;
 	};
 

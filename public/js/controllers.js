@@ -24,7 +24,11 @@ app.controller('UserController', function($scope, $location, UserFactory){
 	$scope.login = function(){
 		UserFactory.login($scope.userName, $scope.password)
 			.then(function(data) {
-				//console.log(data.data);
+				console.log(data.data);
+				var token = data.data.token;
+				UserFactory.setToken(token);
+				var user = data.data.user;
+				UserFactory.setUser(user);
 
 				UserFactory.setUserId(data.data.id);
 				UserFactory.setToken(data.data.token);

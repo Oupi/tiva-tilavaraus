@@ -209,7 +209,7 @@ userRouter.delete("/user/:userId", function(req, res ){
   User.findByIdAndRemove(tempId, function(err, result){
     assert.equal(null, err);
     res.send("User with id: " + tempId + " deleted");
-  })
+  });
 });
 
 module.exports = userRouter;
