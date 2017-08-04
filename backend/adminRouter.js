@@ -11,13 +11,18 @@ var url = config.database;
 var adminRouter = express.Router();
 
 adminRouter.use(function(req, res, next) {
-  var token = req.headers.token;
-  if (token == "admin") {
-    console.log("Authorized access: Admin");
-    next();
-  } else {
-    res.send("Unauthorized access. Wrong Token.");
-  }
+  //Verify token
+  jwt.verify(req.headers.token, config.secret, function(err, decoded){
+    assert.equal(null, err);
+    console.log(decoded._doc);
+    if (decoded._doc.role === 0) {
+      console.log("Authorized access: Admin");
+      // console.log(req.headers);
+      next();
+    } else {
+      res.send("Unauthorized access. Wrong Token.");
+    }
+  });
 });
 
 // Get all users
@@ -41,7 +46,7 @@ adminRouter.delete("/user/:id", function(req, res){
           res.send("User with id "+ req.body.user_id + " has been removed");
       });
     }
-  });  
+  });
 });
 
 module.exports = adminRouter;

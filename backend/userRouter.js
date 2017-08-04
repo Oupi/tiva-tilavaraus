@@ -1,26 +1,33 @@
-var express = require("express");
-var mongoose = require("mongoose");
-var assert = require("assert");
-var bodyParser = require("body-parser");
-var path = require("path");
+var express      = require("express");
+var mongoose    = require("mongoose");
+var assert      = require("assert");
+var bodyParser  = require("body-parser");
+var path        = require("path");
+var jwt         = require("jsonwebtoken");
 
 var Reservation = require("./models/reservation");
-var Room = require("./models/room");
-var User = require("./models/user");
+var Room        = require("./models/room");
+var User        = require("./models/user");
 
-var config = require("./config");
-var url = config.database;
-var userRouter = express.Router();
+var config      = require("./config");
+var url         = config.database;
+var userRouter  = express.Router();
 
 userRouter.use(function(req, res, next) {
-  var token = req.headers.token;
-  if (token == "user" || token == "admin") {
-    console.log("Authorized access");
-    // console.log(req.headers);
-    next();
-  } else {
-    res.send("Unauthorized access. Wrong Token.");
-  }
+  //Verify token
+  jwt.verify(req.headers.token, config.secret, function(err, decoded){
+    assert.equal(null, err);
+    console.log(decoded._doc);
+    if (decoded._doc.role === 0 ||
+        decoded._doc.role === 1 ||
+        decoded._doc_role === 2) {
+      console.log("Authorized access");
+      // console.log(req.headers);
+      next();
+    } else {
+      res.send("Unauthorized access. Wrong Token.");
+    }
+  });
 });
 
 // Make reservation

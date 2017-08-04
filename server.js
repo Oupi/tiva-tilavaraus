@@ -69,53 +69,18 @@ app.post("/login", function(req,res){
 
         // if user is found
         if(response){
-          // check for user's role
-          if(user.role == 0){
 
-            // if user's role is admin
-            jwt.sign(user, config.secret, {
-              expiresIn: 60*60*24, // expires in 24 hours
-            }, function(err, token){
-              assert.equal(null, err);
-              console.log(token);
-              res.json({
-                success: true,
-                message: "Here's your token!",
-                token: token,
-              });
-              req.session.token = token;
+          jwt.sign(user, config.secret, {
+            expiresIn: 60*60*24, // expires in 24 hours
+          }, function(err, token){
+            assert.equal(null, err);
+            res.json({
+              success: true,
+              message: "Here's your token!",
+              token: token
             });
-  				} else if(user.role == 1) {
-
-            // if user's role is just regular user
-            jwt.sign(user, config.secret, {
-              expiresIn: 60*60*24 // expires in 24 hours
-            },  function(err, token){
-              assert.equal(null, err);
-              console.log(token);
-              res.json({
-                success: true,
-                message: "Here's your token!",
-                token: token,
-              });
-              req.session.token = token;
-            });
-  				} else if(user.role == 2) {
-
-            // if user's role is owner
-            jwt.sign(user, config.secret, {
-              expiresIn: 60*60*24 // expires in 24 hours
-            },  function(err, token){
-              assert.equal(null, err);
-              console.log(token);
-              res.json({
-                success: true,
-                message: "Here's your token!",
-                token: token,
-              });
-              req.session.token = token;
-            });
-          }
+            req.session.token = token;
+          });
         } else {
           res.status(403).send("Wrong password.");
         }

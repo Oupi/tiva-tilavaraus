@@ -9,13 +9,18 @@ var url = config.database;
 var ownerRouter = express.Router();
 
 ownerRouter.use(function(req, res, next) {
-  var token = req.headers.token;
-  if (token == "owner") {
-    console.log("Authorized access: Owner");
-    next();
-  } else {
-    res.send("Unauthorized access. Wrong Token.");
-  }
+  //Verify token
+  jwt.verify(req.headers.token, config.secret, function(err, decoded){
+    assert.equal(null, err);
+    console.log(decoded._doc);
+    if (decoded._doc_role === 2) {
+      console.log("Authorized access: Owner");
+      // console.log(req.headers);
+      next();
+    } else {
+      res.send("Unauthorized access. Wrong Token.");
+    }
+  });
 });
 
 module.exports = ownerRouter;
