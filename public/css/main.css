@@ -4,7 +4,7 @@ html, body {
 }
 
 #main-title-div {
-	background-color: #ce3765;
+	background-color: #1a53ff;
 }
 
 #main-title {
@@ -14,7 +14,7 @@ html, body {
 }
 
 #second-title-div {
-	background-color: #ed7499;
+	background-color: #4d79ff;
 }
 
 #second-title {
@@ -30,7 +30,7 @@ html, body {
 }
 
 #footer {
-	background-color: #ce3765;
+	background-color: #4d79ff;
 	height: 50px; /* TEMP */
 }
 
@@ -54,4 +54,8 @@ html, body {
 
 .err-message {
 	color: red;
+}
+
+.row {
+	padding-bottom: 2%;
 }
